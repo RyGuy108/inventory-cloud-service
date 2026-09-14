@@ -47,6 +47,13 @@ the scanner's vulnerability database require their normal download services to b
 available. Security findings or verification failures stop the workflow; historical
 local success does not override a new failure.
 
+The first operational run found a fixture-image selection error: setup pulled the mutable
+Keycloak version tag, while the authentication drill required its pinned digest. The tag
+had moved, so a fresh runner lacked the expected image. Setup now asks the drill for its
+exact image reference with `--print-keycloak-image` and pulls that reference. Certificate,
+hostname, token, role, and ownership checks remain unchanged. The [first-run reports](../reports/github/first-operations/README.md)
+preserve this failure and the six other successful drills.
+
 The manually started **Operational drills** workflow first calls **Verify**, then
 loads its exact verified image archive and performs the isolated runtime drills. It
 checks the archive checksum and image identity before running the fixtures. Test and

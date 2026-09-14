@@ -1,0 +1,42 @@
+{
+  "recorded_at": "2026-09-14T21:30:00.129725+00:00",
+  "repository": "RyGuy108/inventory-cloud-service",
+  "visibility": "private",
+  "run_id": 34898299416,
+  "run_url": "https://github.com/RyGuy108/inventory-cloud-service/actions/runs/34898299416",
+  "source_commit": "0c0ba5d92517aa88d0a6e476ac919a0ccb792650",
+  "status": "passed",
+  "java_tests": {
+    "tests": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "operational_tests": 121,
+  "operational_test_seconds": 21.958,
+  "mocked_terraform_tests": 5,
+  "image_id": "sha256:ffb9b5540afcc7196398447f8aeb036805ba9ad8cfcbe82b2027825d649402d0",
+  "platform": "linux/amd64",
+  "security": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "security_passed": true,
+  "release_contract_capabilities": [
+    "reservation-idempotency/v1",
+    "restricted-runtime/v1",
+    "separate-migrations/v1"
+  ],
+  "artifact_name": "verification-34898299416-1",
+  "retention_days": 30,
+  "scope": "Verification of the corrected fixture-image selection commit; no ECR publication, AWS provisioning, or live operational execution in this Verify run."
+}

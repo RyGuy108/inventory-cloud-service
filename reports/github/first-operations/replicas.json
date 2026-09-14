@@ -1,0 +1,157 @@
+{
+  "started_at": "2026-09-14T21:19:13.634439+00:00",
+  "status": "passed",
+  "drill": "local_two_replica_correctness_and_restart",
+  "environment": {
+    "run_id": "3a3ef9f31a6e40c5922ad97976ee49d0",
+    "application_image_id": "sha256:b838eac092e9b0fb364eaf1f1c5d1025710245e4c9be8e689a8868867102f192",
+    "postgres_image_id": "sha256:a2ea0e68c465e0acf4c3672471b22b6b62972bb341e6f31544c855d85ba43745",
+    "docker_server_version": "28.0.4",
+    "docker_os": "Ubuntu 24.04.5 LTS",
+    "docker_architecture": "x86_64",
+    "docker_cpus": 2,
+    "docker_memory_bytes": 8323973120,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "database_runtime_user": "inventory_app",
+    "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+    "runtime_flyway_enabled": false,
+    "database_host_authentication": "scram-sha-256",
+    "migration_runs": [
+      {
+        "role": "replica-migrate",
+        "exit_code": 0,
+        "duration_seconds": 6.180731256000001
+      }
+    ],
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "runtime_login": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "topology": {
+    "replicas": 2,
+    "distinct_container_ids": [
+      "6045df601267a6ad472ed497965b4fb5a2cebab8641e4cced13442e3070b82cf",
+      "1d05bdb5ef5f78b0ddb62e18e177a2dd4016ba40b26ad71c6caf8ecea494dafb"
+    ],
+    "shared_database": true,
+    "direct_loopback_api_ports": [
+      32773,
+      32774
+    ],
+    "routing": "client alternates requests directly between containers; no load balancer"
+  },
+  "same_key_creation": {
+    "requests": 8,
+    "status_counts": {
+      "200": 7,
+      "201": 1
+    },
+    "requests_by_replica": {
+      "0": 4,
+      "1": 4
+    },
+    "max_request_seconds": 1.3741166490000296,
+    "distinct_reservations": 1,
+    "available_stock": 15
+  },
+  "stock_contention": {
+    "requests": 8,
+    "status_counts": {
+      "201": 3,
+      "409": 5
+    },
+    "requests_by_replica": {
+      "0": 4,
+      "1": 4
+    },
+    "max_request_seconds": 0.5652636059999736,
+    "initial_stock": 7,
+    "units_per_attempt": 2,
+    "reserved_units": 6,
+    "available_stock": 1,
+    "overselling": false
+  },
+  "concurrent_cancellation": {
+    "requests": 8,
+    "status_counts": {
+      "200": 8
+    },
+    "requests_by_replica": {
+      "0": 4,
+      "1": 4
+    },
+    "max_request_seconds": 0.4425626650000254,
+    "restored_units": 5,
+    "available_stock": 20
+  },
+  "restart": {
+    "stopped_replica": 0,
+    "stop_seconds": 0.2671197790000406,
+    "restart_to_ready_seconds": 20.124561426000014,
+    "other_replica_ready_while_stopped": true,
+    "write_while_other_replica_stopped": true,
+    "original_image_and_container_preserved": true,
+    "loopback_port_changed": true
+  },
+  "retries_after_restart": {
+    "requests": 8,
+    "status_counts": {
+      "200": 8
+    },
+    "requests_by_replica": {
+      "0": 4,
+      "1": 4
+    },
+    "max_request_seconds": 0.4396710510000048
+  },
+  "cancellation_after_restart": {
+    "requests": 8,
+    "status_counts": {
+      "200": 8
+    },
+    "requests_by_replica": {
+      "0": 4,
+      "1": 4
+    },
+    "max_request_seconds": 0.435594094999999
+  },
+  "final_invariants": {
+    "reservation_records": 6,
+    "active_reservations": 4,
+    "cancelled_reservations": 2,
+    "product_stock": [
+      19,
+      1
+    ],
+    "all_record_fields_match_on_both_replicas": true,
+    "no_extra_reservations_from_retries": true,
+    "cancellations_restore_stock_once": true
+  },
+  "checks": [
+    "same-key creation across replicas creates exactly one record",
+    "competing replicas cannot oversell shared stock",
+    "concurrent cancellation restores stock once",
+    "surviving replica replays keys and accepts writes while peer is stopped",
+    "restarted replica retains active and cancelled retry behavior",
+    "both replicas return exact final records and stock"
+  ],
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T21:20:30.310158+00:00"
+}

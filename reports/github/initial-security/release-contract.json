@@ -1,0 +1,12 @@
+{
+  "image_id": "sha256:ae7c32993f13d896babb09daaf619e43b70744c92ace01376f1c7a2ee507a9ad",
+  "platform": "linux/amd64",
+  "schemaVersion": 1,
+  "service": "inventory-cloud-service",
+  "capabilities": [
+    "reservation-idempotency/v1",
+    "restricted-runtime/v1",
+    "separate-migrations/v1"
+  ],
+  "contract_sha256": "c3576d7ca0136f147cb05e898bed99244f851b5f80dac0f1d85c196277d4bb43"
+}

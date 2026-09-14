@@ -1,0 +1,27 @@
+{
+  "scanned_at": "2026-09-14T21:12:22.601798+00:00",
+  "image": "inventory-cloud-service:verified",
+  "image_id": "sha256:ae7c32993f13d896babb09daaf619e43b70744c92ace01376f1c7a2ee507a9ad",
+  "jar_sha256": "71ff5477f1505ed7a2a96b408e1fbea32f0c7d88937e2567fdd1d576fad23927",
+  "blocking_severities": [
+    "HIGH",
+    "CRITICAL"
+  ],
+  "ignore_unfixed": false,
+  "scan_errors": false,
+  "reports": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "image_platform": "linux/amd64",
+  "passed": true
+}

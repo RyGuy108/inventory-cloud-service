@@ -1,0 +1,100 @@
+{
+  "recorded_at": "2026-09-14T21:41:28.270837+00:00",
+  "repository": "RyGuy108/inventory-cloud-service",
+  "visibility": "private",
+  "run_id": 34898295610,
+  "run_url": "https://github.com/RyGuy108/inventory-cloud-service/actions/runs/34898295610",
+  "source_commit": "0c0ba5d92517aa88d0a6e476ac919a0ccb792650",
+  "status": "passed",
+  "completed_at": "2026-09-14T21:37:52Z",
+  "image_id": "sha256:01930695af4dc945666e61faba4884f1c66c3d22ef224739f69b600c74d1ea73",
+  "platform": "linux/amd64",
+  "verified_archive_handoff": "passed",
+  "java_tests": {
+    "tests": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "operational_tests": 121,
+  "mocked_terraform_tests": 5,
+  "security": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "security_passed": true,
+  "drills": [
+    {
+      "name": "oidc",
+      "status": "passed",
+      "report": "operations/oidc.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "recovery",
+      "status": "passed",
+      "report": "operations/recovery.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "rotation",
+      "status": "passed",
+      "report": "operations/rotation.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "load",
+      "status": "passed",
+      "report": "operations/load.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "replicas",
+      "status": "passed",
+      "report": "operations/replicas.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "rollback",
+      "status": "passed",
+      "report": "operations/rollback.json",
+      "cleanup_errors": []
+    },
+    {
+      "name": "monitoring",
+      "status": "passed",
+      "report": "operations/monitoring.json",
+      "cleanup_errors": []
+    }
+  ],
+  "observations": {
+    "oidc_checks": 10,
+    "restore_ready_seconds": 20.297722766999982,
+    "password_rotation_maintenance_seconds": 27.719211926999947,
+    "load_requests": 288,
+    "load_unexpected_errors": 0,
+    "load_requests_per_second": 10.039829952381169,
+    "replica_restart_to_ready_seconds": 19.466139251999948,
+    "rollback_timings_seconds": {
+      "candidate_failure_to_restored_readiness": 20.39189309400001,
+      "baseline_stop_to_restored_readiness": 42.13757037000005
+    },
+    "outage_to_firing_notification_seconds": 17.091731974999902,
+    "recovery_to_resolved_notification_seconds": 2.0254718659999753
+  },
+  "limits": [
+    "GitHub-hosted disposable Linux containers; no ECS deployment, load-balancer routing, RDS failover, or AWS secret rotation.",
+    "OIDC uses a real disposable Keycloak provider and production profile; the six other drills use local Basic authentication.",
+    "Measured timings are fixture observations, not production recovery or capacity targets.",
+    "The repository retains the original failed image-selection run separately."
+  ]
+}

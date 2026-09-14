@@ -1,0 +1,53 @@
+{
+  "recorded_at": "2026-09-14T21:14:42.673171+00:00",
+  "repository": "RyGuy108/inventory-cloud-service",
+  "visibility": "private",
+  "run_id": 34897047005,
+  "run_url": "https://github.com/RyGuy108/inventory-cloud-service/actions/runs/34897047005",
+  "source_commit": "c19ae9d6854f86f13ba759214422970abf4ee8e3",
+  "status": "passed",
+  "created_at": "2026-09-14T21:08:08Z",
+  "completed_at": "2026-09-14T21:12:32Z",
+  "jobs": [
+    {
+      "name": "application",
+      "conclusion": "success"
+    },
+    {
+      "name": "terraform",
+      "conclusion": "success"
+    }
+  ],
+  "java_tests": {
+    "tests": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "operational_tests": 121,
+  "mocked_terraform_tests": 5,
+  "image_id": "sha256:ae7c32993f13d896babb09daaf619e43b70744c92ace01376f1c7a2ee507a9ad",
+  "platform": "linux/amd64",
+  "security": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "security_passed": true,
+  "release_contract_capabilities": [
+    "reservation-idempotency/v1",
+    "restricted-runtime/v1",
+    "separate-migrations/v1"
+  ],
+  "artifact_name": "verification-34897047005-1",
+  "retention_days": 30,
+  "scope": "Native GitHub-hosted verification of the recorded source commit. No ECR publication, AWS provisioning, or operational drill execution in this run."
+}

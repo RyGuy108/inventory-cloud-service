@@ -1,0 +1,61 @@
+{
+  "started_at": "2026-09-14T21:28:24.304862+00:00",
+  "checks": [
+    "the issuer certificate is rejected without the generated CA trust",
+    "real Keycloak tokens contain the configured issuer, audience, and application roles",
+    "production rejects anonymous and Basic authentication and accepts a signed customer token",
+    "ADMIN can create inventory and CUSTOMER cannot",
+    "a genuine customer token can create and replay an idempotent reservation without duplicate stock consumption",
+    "reservation ownership uses JWT subject and another customer cannot read, list, or cancel it",
+    "customer can reserve and cancel; repeated cancellation restores stock exactly once",
+    "a genuine Keycloak token for a different audience is rejected",
+    "a token with a modified signature is rejected",
+    "a genuine short-lived token works before expiry, is rejected after clock skew, and a fresh token succeeds"
+  ],
+  "passed": true,
+  "run_id": "449f2dd5e8ac4a299c85c587addca80a",
+  "application_image_id": "sha256:01930695af4dc945666e61faba4884f1c66c3d22ef224739f69b600c74d1ea73",
+  "postgres_image_id": "sha256:a2ea0e68c465e0acf4c3672471b22b6b62972bb341e6f31544c855d85ba43745",
+  "docker_server_version": "28.0.4",
+  "docker_os": "Ubuntu 24.04.5 LTS",
+  "docker_architecture": "x86_64",
+  "docker_cpus": 2,
+  "docker_memory_bytes": 8322936832,
+  "application_limits": {
+    "cpus": 1,
+    "memory_bytes": 805306368
+  },
+  "database_limits": {
+    "cpus": 1,
+    "memory_bytes": 402653184,
+    "storage": "disposable tmpfs"
+  },
+  "authentication": "production Bearer tokens from real Keycloak over verified TLS",
+  "database_runtime_user": "inventory_app",
+  "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+  "runtime_flyway_enabled": false,
+  "database_host_authentication": "scram-sha-256",
+  "migration_runs": [
+    {
+      "role": "oidc-migrate",
+      "exit_code": 0,
+      "duration_seconds": 6.084493886000018
+    }
+  ],
+  "jdbc_timeout_override_seconds": {
+    "socketTimeout": 5,
+    "connectTimeout": 3
+  },
+  "scope": "disposable local Docker containers; existing Compose application untouched",
+  "keycloak_image": "quay.io/keycloak/keycloak:26.7.3@sha256:ff4257d0d64efbe99ed1ddfaf07765cc3c36dc7518bf8324d41961327f441c54",
+  "keycloak_image_id": "sha256:946db99597ac833a42348d8da2dc6e28be656211758cdb5e84d2e415e158191f",
+  "issuer": "https://keycloak:8443/realms/inventory-drill",
+  "audience": "inventory-api",
+  "tls_certificate_validation": true,
+  "tls_hostname_validation": true,
+  "database_runtime_role": "inventory_app",
+  "token_acquisition": "direct access grants enabled only on disposable fixture clients",
+  "identity_provider_storage": "disposable container dev-file database",
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T21:30:42.439023+00:00"
+}

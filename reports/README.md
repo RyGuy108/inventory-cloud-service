@@ -2,6 +2,10 @@
 
 These are observed local results recorded on September 14, 2026 UTC. Each checkpoint identifies its exact application image. Local image rollback has been demonstrated; no cloud deployment or cloud recovery has been executed.
 
+Hosted results now supplement these local checkpoints. [GitHub verification](github/initial-verification.json) records the first successful native Linux AMD64 build and scan, 63 Java tests, 121 operational tests, and five mocked Terraform tests for the exact published source commit. Its image identity differs from the local ARM64 image below. No application was deployed to AWS by that run.
+
+The [corrected hosted operational run](github/operations.json) passed all seven drills, including real production-profile authentication and two-instance restart behavior. All reports match its separately verified AMD64 image and confirm successful cleanup. [GitHub evidence](github/README.md) retains the initial image-selection failure, its fix, current scan/SBOM, and completed results. AWS provisioning and deployment remain separate work.
+
 ## Current image: business metrics, monitoring, and release compatibility
 
 Application: `sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d`.
@@ -24,7 +28,7 @@ The later [two-replica drill](replicas/latest.json) passed six checks against th
 
 The rollback candidate's V3 migration existed only in a temporary fixture archive. It never entered repository migrations or the existing Compose database. The final live demo added a fourth product and cancelled reservation after the upgrade had preserved all three earlier records. Notifications were delivered only to a private disposable receiver. These results do not establish ECS rollback behavior or production notification routing.
 
-The [combined verification report](verification-observability.json) records 63 Java tests, 108 offline operational/security tests, and 5 mocked Terraform plan tests, with matching image identities across the current evidence. See [the verification record](../docs/verification.md) for interpretation. The manual GitHub workflow now repeats seven drills sequentially against the verified image archive; it has not run remotely. The following older reports remain valid evidence for their recorded images and were not rerun against this checkpoint.
+The [combined verification report](verification-observability.json) records 63 Java tests, 108 offline operational/security tests, and 5 mocked Terraform plan tests, with matching image identities across the current evidence. See [the verification record](../docs/verification.md) for interpretation. The manual GitHub workflow now repeats seven drills sequentially against the verified image archive. Its hosted results are recorded separately above. The following older reports remain valid evidence for their recorded images and were not rerun against this checkpoint.
 
 ## Previous image: retry support and restricted runtime
 

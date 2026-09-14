@@ -1,0 +1,8 @@
+{
+  "started_at": "2026-09-14T21:16:10.779246+00:00",
+  "checks": [],
+  "passed": false,
+  "error": "Docker image failed: Error response from daemon: No such image: quay.io/keycloak/keycloak:26.7.3@sha256:ff4257d0d64efbe99ed1ddfaf07765cc3c36dc7518bf8324d41961327f441c54",
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T21:16:11.103766+00:00"
+}

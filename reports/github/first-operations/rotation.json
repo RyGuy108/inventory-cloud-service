@@ -1,0 +1,86 @@
+{
+  "started_at": "2026-09-14T21:17:16.238850+00:00",
+  "status": "passed",
+  "drill": "local_runtime_password_rotation",
+  "environment": {
+    "run_id": "2886b478ca08468d83b90eacb18d0072",
+    "application_image_id": "sha256:b838eac092e9b0fb364eaf1f1c5d1025710245e4c9be8e689a8868867102f192",
+    "postgres_image_id": "sha256:a2ea0e68c465e0acf4c3672471b22b6b62972bb341e6f31544c855d85ba43745",
+    "docker_server_version": "28.0.4",
+    "docker_os": "Ubuntu 24.04.5 LTS",
+    "docker_architecture": "x86_64",
+    "docker_cpus": 2,
+    "docker_memory_bytes": 8323973120,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "database_runtime_user": "inventory_app",
+    "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+    "runtime_flyway_enabled": false,
+    "database_host_authentication": "scram-sha-256",
+    "migration_runs": [
+      {
+        "role": "initial-migrate",
+        "exit_code": 0,
+        "duration_seconds": 5.971190554000003
+      },
+      {
+        "role": "rotation-migrate",
+        "exit_code": 0,
+        "duration_seconds": 5.955139461999977
+      }
+    ],
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "initial_runtime_login": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "maintenance": {
+    "old_runtime_stopped": true,
+    "strategy": "stop old runtime, rotate with migration task, replace runtime",
+    "stop_through_replacement_ready_seconds": 26.047070389000027
+  },
+  "old_password_probe": {
+    "fresh_tcp_connection": true,
+    "accepted": false,
+    "runtime_permissions_checked": false,
+    "expected_authentication_rejection": true
+  },
+  "new_password_probe": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "business_checks": [
+    "product fields preserved",
+    "active reservation fields preserved",
+    "idempotency key survives runtime replacement and cancellation",
+    "replacement runtime accepts authenticated requests",
+    "cancellation succeeds",
+    "repeat cancellation is idempotent",
+    "stock restored exactly once"
+  ],
+  "limits": [
+    "local Docker and generated per-run environment credentials",
+    "maintenance interval required; not zero downtime",
+    "no AWS Secrets Manager or RDS rotation demonstrated",
+    "old existing database sessions are not used to test password invalidation"
+  ],
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T21:18:13.908628+00:00"
+}

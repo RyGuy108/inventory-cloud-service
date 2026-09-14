@@ -1,0 +1,89 @@
+{
+  "started_at": "2026-09-14T21:16:11.185233+00:00",
+  "status": "passed",
+  "drill": "local_backup_restore_and_database_outage",
+  "environment": {
+    "run_id": "e3611aa9f81d4ee78baf8a578c5d23fe",
+    "application_image_id": "sha256:b838eac092e9b0fb364eaf1f1c5d1025710245e4c9be8e689a8868867102f192",
+    "postgres_image_id": "sha256:a2ea0e68c465e0acf4c3672471b22b6b62972bb341e6f31544c855d85ba43745",
+    "docker_server_version": "28.0.4",
+    "docker_os": "Ubuntu 24.04.5 LTS",
+    "docker_architecture": "x86_64",
+    "docker_cpus": 2,
+    "docker_memory_bytes": 8323973120,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "database_runtime_user": "inventory_app",
+    "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+    "runtime_flyway_enabled": false,
+    "database_host_authentication": "scram-sha-256",
+    "migration_runs": [
+      {
+        "role": "source-migrate",
+        "exit_code": 0,
+        "duration_seconds": 6.049279517999992
+      },
+      {
+        "role": "restored-migrate",
+        "exit_code": 0,
+        "duration_seconds": 5.736096426999978
+      }
+    ],
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "source_runtime_login": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "backup": {
+    "format": "PostgreSQL custom",
+    "bytes": 8290,
+    "sha256": "cb94d2213913f8ea80fca7b37dd25801d5f67b0c203f300d955daf8382e8666b",
+    "duration_seconds": 0.14590338700000416,
+    "storage": "process memory; never saved or uploaded"
+  },
+  "restore": {
+    "database_restore_seconds": 0.1081064050000009,
+    "destination": "separate fresh disposable database",
+    "application_ready_seconds": 20.072387534,
+    "checks": [
+      "all product fields match",
+      "all active reservation fields match",
+      "idempotency key survives restore and cancellation",
+      "cancellation succeeds",
+      "repeat cancellation is idempotent",
+      "stock restored exactly once",
+      "source remains unchanged"
+    ]
+  },
+  "restored_runtime_login": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "database_outage": {
+    "simulation": "pause/unpause only the restored disposable PostgreSQL container",
+    "readiness_status_during_outage": 503,
+    "liveness_status_during_outage": 200,
+    "unavailable_detection_seconds": 5.0471661609999785,
+    "readiness_recovery_seconds": 0.014581911999982822,
+    "business_read_after_recovery": "passed"
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T21:17:16.166513+00:00"
+}
