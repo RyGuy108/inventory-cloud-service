@@ -1,0 +1,306 @@
+{
+  "started_at": "2026-09-14T17:12:34.214484+00:00",
+  "status": "passed",
+  "drill": "local_metrics_readiness_and_notification_delivery",
+  "monitoring_images": {
+    "prometheus": {
+      "version": "3.14.0",
+      "image": "prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+      "source": "https://github.com/prometheus/prometheus",
+      "image_id": "sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+      "repo_digests": [
+        "prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+      ]
+    },
+    "alertmanager": {
+      "version": "0.34.0",
+      "image": "prom/alertmanager@sha256:690c7b525f4367aa91f73e2f91c632206d32e97c6384bdbf2fb7a861b420340d",
+      "source": "https://github.com/prometheus/alertmanager",
+      "image_id": "sha256:690c7b525f4367aa91f73e2f91c632206d32e97c6384bdbf2fb7a861b420340d",
+      "repo_digests": [
+        "prom/alertmanager@sha256:690c7b525f4367aa91f73e2f91c632206d32e97c6384bdbf2fb7a861b420340d"
+      ]
+    },
+    "blackbox": {
+      "version": "0.28.0",
+      "image": "prom/blackbox-exporter@sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc",
+      "source": "https://github.com/prometheus/blackbox_exporter",
+      "image_id": "sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc",
+      "repo_digests": [
+        "prom/blackbox-exporter@sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc"
+      ]
+    },
+    "receiver": {
+      "version": "Python 3.13 Alpine, resolved September 14, 2026",
+      "image": "python@sha256:7415fbc3c9e4979cc717d92377ab2bc7b2b4a2af1ac03cc52b5f3f88efedaf3a",
+      "source": "https://hub.docker.com/_/python",
+      "image_id": "sha256:7415fbc3c9e4979cc717d92377ab2bc7b2b4a2af1ac03cc52b5f3f88efedaf3a",
+      "repo_digests": [
+        "python@sha256:7415fbc3c9e4979cc717d92377ab2bc7b2b4a2af1ac03cc52b5f3f88efedaf3a"
+      ]
+    }
+  },
+  "environment": {
+    "run_id": "7ab109a119154246921372b02204aa58",
+    "application_image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+    "postgres_image_id": "sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0",
+    "docker_server_version": "29.5.2",
+    "docker_os": "Ubuntu 24.04.4 LTS",
+    "docker_architecture": "aarch64",
+    "docker_cpus": 4,
+    "docker_memory_bytes": 6197448704,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "database_runtime_user": "inventory_app",
+    "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+    "runtime_flyway_enabled": false,
+    "database_host_authentication": "scram-sha-256",
+    "migration_runs": [
+      {
+        "role": "monitoring-migrate",
+        "exit_code": 0,
+        "duration_seconds": 3.6833139170194045
+      }
+    ],
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "configuration": {
+    "metrics_scrape_seconds": 2,
+    "readiness_scrape_seconds": 10,
+    "readiness_timeout_seconds": 8,
+    "alert_for_seconds": 4,
+    "evaluation_seconds": 1,
+    "notification_group_wait_seconds": 1,
+    "notification_group_interval_seconds": 2,
+    "receiver_scope": "private disposable webhook; no external message destination",
+    "metrics_password_storage": "temporary mode-0600 file, deleted after container cleanup"
+  },
+  "metrics_access": {
+    "unauthenticated_status": 401,
+    "customer_status": 403,
+    "authenticated_prometheus_scrape_up": 1
+  },
+  "jvm_memory_series": 8,
+  "business_metrics": {
+    "inventory_reservations_total": 1.0,
+    "inventory_reservations_replayed_total": 1.0,
+    "inventory_reservations_cancelled_total": 1.0
+  },
+  "baseline": {
+    "metrics_up": 1,
+    "readiness_probe_success": 1,
+    "readiness_http_status": 200
+  },
+  "outage": {
+    "readiness_probe_success": 0,
+    "readiness_http_status": 503,
+    "metrics_up": 1,
+    "metrics_last_scrape_age_seconds": 1.681999921798706,
+    "liveness_http_status": 200,
+    "prometheus_alert_state": "firing",
+    "pause_to_firing_notification_seconds": 17.01646608300507,
+    "fingerprint": "1f32d7bb9c4b7113"
+  },
+  "notifications": [
+    {
+      "received_at": "2026-09-14T17:13:23.789664+00:00",
+      "status": "firing",
+      "alerts": [
+        {
+          "status": "firing",
+          "fingerprint": "1f32d7bb9c4b7113",
+          "starts_at": "2026-09-14T17:13:22.762Z",
+          "ends_at": "0001-01-01T00:00:00Z",
+          "alertname": "InventoryReadinessFailed",
+          "drill_run": "7ab109a119154246921372b02204aa58"
+        }
+      ]
+    },
+    {
+      "received_at": "2026-09-14T17:13:25.787686+00:00",
+      "status": "resolved",
+      "alerts": [
+        {
+          "status": "resolved",
+          "fingerprint": "1f32d7bb9c4b7113",
+          "starts_at": "2026-09-14T17:13:22.762Z",
+          "ends_at": "2026-09-14T17:13:24.762Z",
+          "alertname": "InventoryReadinessFailed",
+          "drill_run": "7ab109a119154246921372b02204aa58"
+        }
+      ]
+    }
+  ],
+  "recovery": {
+    "readiness_probe_success": 1,
+    "readiness_http_status": 200,
+    "unpause_to_resolved_notification_seconds": 2.0603732909075916,
+    "same_alert_fingerprint": true
+  },
+  "business_read_after_recovery": "passed",
+  "sanitized_configuration": {
+    "prometheus.yml": {
+      "global": {
+        "scrape_interval": "2s",
+        "scrape_timeout": "1s",
+        "evaluation_interval": "1s"
+      },
+      "rule_files": [
+        "/config/alerts.yml"
+      ],
+      "alerting": {
+        "alertmanagers": [
+          {
+            "static_configs": [
+              {
+                "targets": [
+                  "inventory-drill-7ab109a11915-alertmanager:9093"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "scrape_configs": [
+        {
+          "job_name": "inventory-app",
+          "metrics_path": "/actuator/prometheus",
+          "follow_redirects": false,
+          "basic_auth": {
+            "username": "admin",
+            "password_file": "/config/metrics-password"
+          },
+          "static_configs": [
+            {
+              "targets": [
+                "inventory-drill-7ab109a11915-monitoring-app:8080"
+              ],
+              "labels": {
+                "drill_run": "7ab109a119154246921372b02204aa58"
+              }
+            }
+          ]
+        },
+        {
+          "job_name": "inventory-readiness",
+          "scrape_interval": "10s",
+          "scrape_timeout": "9s",
+          "metrics_path": "/probe",
+          "params": {
+            "module": [
+              "inventory_readiness"
+            ]
+          },
+          "static_configs": [
+            {
+              "targets": [
+                "http://inventory-drill-7ab109a11915-monitoring-app:8080/actuator/health/readiness"
+              ],
+              "labels": {
+                "drill_run": "7ab109a119154246921372b02204aa58"
+              }
+            }
+          ],
+          "relabel_configs": [
+            {
+              "source_labels": [
+                "__address__"
+              ],
+              "target_label": "__param_target"
+            },
+            {
+              "source_labels": [
+                "__param_target"
+              ],
+              "target_label": "instance"
+            },
+            {
+              "target_label": "__address__",
+              "replacement": "inventory-drill-7ab109a11915-blackbox:9115"
+            }
+          ]
+        }
+      ]
+    },
+    "alertmanager.yml": {
+      "global": {
+        "resolve_timeout": "1m"
+      },
+      "route": {
+        "receiver": "drill-webhook",
+        "group_by": [
+          "alertname",
+          "drill_run"
+        ],
+        "group_wait": "1s",
+        "group_interval": "2s",
+        "repeat_interval": "1m"
+      },
+      "receivers": [
+        {
+          "name": "drill-webhook",
+          "webhook_configs": [
+            {
+              "url": "http://inventory-drill-7ab109a11915-receiver:8081/webhook",
+              "send_resolved": true,
+              "timeout": "1s",
+              "http_config": {
+                "follow_redirects": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "blackbox.yml": {
+      "modules": {
+        "inventory_readiness": {
+          "prober": "http",
+          "timeout": "8s",
+          "http": {
+            "method": "GET",
+            "valid_status_codes": [
+              200
+            ],
+            "follow_redirects": false,
+            "preferred_ip_protocol": "ip4"
+          }
+        }
+      }
+    },
+    "alerts.yml": {
+      "groups": [
+        {
+          "name": "inventory-readiness",
+          "rules": [
+            {
+              "alert": "InventoryReadinessFailed",
+              "expr": "probe_success{job=\"inventory-readiness\"} == 0",
+              "for": "4s",
+              "labels": {
+                "severity": "warning"
+              },
+              "annotations": {
+                "summary": "The inventory service readiness probe is failing"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T17:13:27.372360+00:00"
+}

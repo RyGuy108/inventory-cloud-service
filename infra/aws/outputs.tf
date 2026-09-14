@@ -1,0 +1,9 @@
+output "load_balancer_hostname" { value = aws_lb.app.dns_name }
+output "public_base_url" { value = "https://${var.public_hostname}" }
+output "ecs_cluster" { value = aws_ecs_cluster.app.name }
+output "ecs_service" { value = aws_ecs_service.app.name }
+output "task_definition" { value = aws_ecs_task_definition.app.arn }
+output "migration_task_definition" { value = aws_ecs_task_definition.migration.arn }
+output "github_publish_role_arn" { value = try(aws_iam_role.github_publish[0].arn, null) }
+output "log_group" { value = aws_cloudwatch_log_group.app.name }
+output "github_deploy_role_arn" { value = try(aws_iam_role.github_deploy[0].arn, null) }

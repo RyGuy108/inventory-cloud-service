@@ -1,0 +1,14 @@
+{
+  "global": {"resolve_timeout": "1m"},
+  "route": {
+    "receiver": "drill-webhook",
+    "group_by": ["alertname", "drill_run"],
+    "group_wait": "1s",
+    "group_interval": "2s",
+    "repeat_interval": "1m"
+  },
+  "receivers": [{
+    "name": "drill-webhook",
+    "webhook_configs": [{"url": "$RECEIVER_URL", "send_resolved": true, "timeout": "1s", "http_config": {"follow_redirects": false}}]
+  }]
+}

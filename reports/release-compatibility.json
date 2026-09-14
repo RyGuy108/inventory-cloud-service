@@ -1,0 +1,41 @@
+{
+  "current": {
+    "image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+    "platform": "linux/arm64",
+    "schemaVersion": 1,
+    "service": "inventory-cloud-service",
+    "capabilities": [
+      "reservation-idempotency/v1",
+      "restricted-runtime/v1",
+      "separate-migrations/v1"
+    ],
+    "contract_sha256": "c3576d7ca0136f147cb05e898bed99244f851b5f80dac0f1d85c196277d4bb43"
+  },
+  "older_image": {
+    "image_id": "sha256:03e51ec41894cd7838d7cf4f8f7887d8e775adbf105274bcd7d6faea263ba30c",
+    "rejected": true,
+    "reason": "A required image inspection command failed; compatibility was not verified."
+  },
+  "recorded_at": "2026-09-14T18:27:44.167711+00:00",
+  "validation": {
+    "deployment_tests_passed": 21,
+    "migration_tests_passed": 14,
+    "contract_tests_passed": 15,
+    "mocked_terraform_tests_passed": 5,
+    "terraform_validate_passed": true,
+    "four_workflows_actionlint_passed": true,
+    "extraction_containers_remaining": 0,
+    "aws_requests_made": false
+  },
+  "scope": "Compatibility inspection of embedded contracts and immutable image identity; not a provenance or security attestation.",
+  "settled_baseline_policy": {
+    "required_deployments": 1,
+    "required_status": "PRIMARY",
+    "required_rollout_state": "COMPLETED",
+    "requires_matching_service_and_deployment_counts": true,
+    "requires_running_equals_desired": true,
+    "requires_zero_pending": true,
+    "rechecks_deployment_identity_before_mutation": true,
+    "bootstrap": "Single completed deployment with all service and deployment counts zero; old image contract not required."
+  }
+}

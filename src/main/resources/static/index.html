@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory Cloud Service — API guide</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#192a35;background:#f4f6f5;line-height:1.6}body{max-width:960px;margin:auto;padding:56px 24px}header{border-bottom:1px solid #ccd6d2;padding-bottom:28px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#367063;font-weight:700}h1{font-size:clamp(30px,5vw,48px);letter-spacing:-.045em;margin:10px 0}h2{font-size:22px;margin-top:36px}a{color:#17624e}nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px}p{max-width:760px}code{font-family:ui-monospace,monospace;font-size:13px}pre{background:#182b31;color:#e2eee9;padding:22px;border-radius:10px;overflow:auto}table{border-collapse:collapse;width:100%;background:white;font-size:14px}td,th{text-align:left;padding:12px;border-bottom:1px solid #e0e7e4}th{color:#547166;font-size:12px;text-transform:uppercase}footer{margin-top:40px;color:#587067;font-size:13px}.table-wrap{overflow:auto}.note{border-left:3px solid #50846a;padding-left:16px}
+</style>
+<header><span class="eyebrow">JAVA · SPRING BOOT · POSTGRESQL</span><h1>Inventory Cloud Service</h1>
+<p>A backend for managing stock and customer reservations. Database transactions protect inventory when requests arrive at the same time.</p>
+<nav><a href="/openapi.yaml">OpenAPI specification</a><a href="/actuator/health">Service health</a><a href="/actuator/health/readiness">Readiness</a><a href="/actuator/health/liveness">Liveness</a></nav></header>
+<h2>API endpoints</h2><div class="table-wrap"><table><thead><tr><th>Method</th><th>Path</th><th>Access</th></tr></thead><tbody>
+<tr><td>GET</td><td><code>/api/v1/products</code></td><td>Authenticated</td></tr>
+<tr><td>POST</td><td><code>/api/v1/products</code></td><td>Administrator</td></tr>
+<tr><td>GET</td><td><code>/api/v1/products/{id}</code></td><td>Authenticated</td></tr>
+<tr><td>POST</td><td><code>/api/v1/products/{id}/stock</code></td><td>Administrator</td></tr>
+<tr><td>GET / POST</td><td><code>/api/v1/reservations</code></td><td>Current customer</td></tr>
+<tr><td>GET</td><td><code>/api/v1/reservations/{id}</code></td><td>Reservation owner</td></tr>
+<tr><td>POST</td><td><code>/api/v1/reservations/{id}/cancel</code></td><td>Reservation owner</td></tr>
+</tbody></table></div>
+<h2>Try a local request</h2><p>Start the local Docker environment using the README. Use the administrator password from your local <code>.env</code> file. Curl will prompt for it.</p>
+<pre><code>curl --user admin -H 'Content-Type: application/json' \
+  -d '{"sku":"WIDGET-01","name":"Widget","initialQuantity":10}' \
+  http://localhost:8080/api/v1/products</code></pre>
+<h2>Behavior you can rely on</h2><p>Reservations decrement available stock in the same transaction that creates the reservation. Cancelling restores stock once, including when the request is repeated. Customers can only read or cancel their own reservations.</p>
+<p>Send a unique <code>Idempotency-Key</code> header when creating a reservation. Retrying with the same key, product, and quantity returns the original reservation without consuming stock again. Use a new key for each intended reservation; changing the request under an existing key returns a conflict.</p>
+<p class="note">Production uses signed bearer tokens with issuer and audience validation. Password-based demo accounts are enabled only in the explicit local and test profiles.</p>
+<h2>Errors and operations</h2><p>Errors use <code>application/problem+json</code>. Every response carries an <code>X-Request-ID</code> for log correlation. List endpoints accept <code>page</code> and <code>size</code>; page numbering starts at zero and size is limited to 100.</p>
+<footer>API v1 · Health links report the running service; this guide does not imply a cloud deployment.</footer>
+</html>

@@ -1,0 +1,107 @@
+name: Verify
+on:
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - 'reports/**'
+      - '**/*.md'
+  pull_request:
+  workflow_call:
+    inputs:
+      release_bundle:
+        type: boolean
+        default: false
+    outputs:
+      image_id:
+        description: Verified local image identity
+        value: ${{ jobs.application.outputs.image_id }}
+      archive_sha256:
+        description: SHA256 of the verified container archive
+        value: ${{ jobs.application.outputs.archive_sha256 }}
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      image_id: ${{ steps.bundle.outputs.image_id }}
+      archive_sha256: ${{ steps.bundle.outputs.archive_sha256 }}
+    env:
+      SECURITY_REPORT_DIR: target/security
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Unit and PostgreSQL integration tests
+        run: ./mvnw -B -ntp verify
+      - name: Check local environment configuration
+        run: docker compose --env-file .env.example config --quiet
+      - name: Verify release success and rollback handling offline
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Build Linux container
+        run: docker build --pull --platform linux/amd64 -t inventory-cloud-service:verified .
+      - name: Verify the compatibility contract embedded in the image
+        run: |
+          mkdir -p target/security
+          image_id=$(docker image inspect inventory-cloud-service:verified --format '{{.Id}}')
+          python3 scripts/release_contract.py "$image_id" > target/security/release-contract.json
+      - name: Scan packaged dependencies and image; generate SBOM
+        run: ./scripts/verify-release.sh inventory-cloud-service:verified
+      - name: Save exactly the verified image for publication
+        id: bundle
+        if: inputs.release_bundle
+        run: |
+          mkdir -p target/release-bundle
+          docker save inventory-cloud-service:verified -o target/release-bundle/image.tar
+          image_id=$(docker image inspect inventory-cloud-service:verified --format '{{.Id}}')
+          archive_sha256=$(sha256sum target/release-bundle/image.tar | cut -d ' ' -f 1)
+          echo "image_id=$image_id" >> "$GITHUB_OUTPUT"
+          echo "archive_sha256=$archive_sha256" >> "$GITHUB_OUTPUT"
+      - name: Retain verified image within this run
+        if: inputs.release_bundle
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: verified-image-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/release-bundle/image.tar
+          compression-level: 0
+          retention-days: 3
+          if-no-files-found: error
+      - name: Retain test and security evidence even when a gate fails
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            target/surefire-reports/
+            target/failsafe-reports/
+            target/security/
+          retention-days: 30
+          if-no-files-found: warn
+  terraform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: 1.13.0
+      - run: terraform fmt -check -recursive infra
+      - name: Validate infrastructure without credentials or remote state
+        run: |
+          terraform -chdir=infra/bootstrap init -backend=false -input=false
+          terraform -chdir=infra/bootstrap validate
+          terraform -chdir=infra/aws init -backend=false -input=false
+          terraform -chdir=infra/aws validate
+      - name: Test account and region boundaries with mocked AWS
+        run: terraform -chdir=infra/aws test -no-color

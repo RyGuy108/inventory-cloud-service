@@ -1,0 +1,2414 @@
+{
+  "started_at": "2026-09-14T00:04:18.580656+00:00",
+  "status": "passed",
+  "drill": "bounded_local_contention_and_reads",
+  "environment": {
+    "run_id": "b70f6338a4004e8b9c680884a7febd1a",
+    "application_image_id": "sha256:a15a6e1cec21fbb87def55c645a92bff59f38e671ec0130711b4c213064c60d0",
+    "postgres_image_id": "sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0",
+    "docker_server_version": "29.5.2",
+    "docker_os": "Ubuntu 24.04.4 LTS",
+    "docker_architecture": "aarch64",
+    "docker_cpus": 4,
+    "docker_memory_bytes": 6197448704,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "workload": {
+    "requested_requests": 288,
+    "concurrency": 8,
+    "request_issue_deadline_seconds": 45,
+    "per_request_timeout_seconds": 3,
+    "warmup_requests_excluded": 8,
+    "initial_stock": 64,
+    "phases": [
+      {
+        "operation": "reserve_one_unit",
+        "requests": 160
+      },
+      {
+        "operation": "read_product",
+        "requests": 128
+      }
+    ],
+    "connection_policy": "new HTTP connection for each request",
+    "percentile_method": "nearest rank",
+    "clock": "time.monotonic",
+    "setup_and_validation_excluded": true
+  },
+  "results": {
+    "requests": 288,
+    "status_counts": {
+      "200": 128,
+      "201": 64,
+      "409": 96
+    },
+    "latency_ms": {
+      "p50": 1050.6015829741955,
+      "p95": 1710.300208069384,
+      "p99": 1988.0063330056146,
+      "max": 2000.464167096652
+    },
+    "elapsed_seconds": 38.794480166980065,
+    "requests_per_second": 7.423736540878599,
+    "successful_2xx": 192,
+    "expected_409_conflicts": 96,
+    "unexpected_errors": 0,
+    "by_operation": {
+      "reserve": {
+        "requests": 160,
+        "status_counts": {
+          "201": 64,
+          "409": 96
+        },
+        "latency_ms": {
+          "p50": 1190.677542006597,
+          "p95": 1796.3894589338452,
+          "p99": 1991.9454170158133,
+          "max": 2000.464167096652
+        }
+      },
+      "read": {
+        "requests": 128,
+        "status_counts": {
+          "200": 128
+        },
+        "latency_ms": {
+          "p50": 904.6951669733971,
+          "p95": 1300.2537920838222,
+          "p99": 1695.7785000558943,
+          "max": 1807.1875419700518
+        }
+      }
+    }
+  },
+  "samples": [
+    {
+      "index": 0,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1255.4748330730945,
+      "error": null
+    },
+    {
+      "index": 1,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1151.7443750053644,
+      "error": null
+    },
+    {
+      "index": 2,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1258.514125016518,
+      "error": null
+    },
+    {
+      "index": 3,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 952.8003750601783,
+      "error": null
+    },
+    {
+      "index": 4,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1058.6556670023128,
+      "error": null
+    },
+    {
+      "index": 5,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1065.961749991402,
+      "error": null
+    },
+    {
+      "index": 6,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 958.9820828987285,
+      "error": null
+    },
+    {
+      "index": 7,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1050.6015829741955,
+      "error": null
+    },
+    {
+      "index": 8,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1511.299875099212,
+      "error": null
+    },
+    {
+      "index": 9,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 689.0263749519363,
+      "error": null
+    },
+    {
+      "index": 10,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 597.4155829753727,
+      "error": null
+    },
+    {
+      "index": 11,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1895.4223340842873,
+      "error": null
+    },
+    {
+      "index": 12,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1988.0063330056146,
+      "error": null
+    },
+    {
+      "index": 13,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1209.520792006515,
+      "error": null
+    },
+    {
+      "index": 14,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1383.9871250092983,
+      "error": null
+    },
+    {
+      "index": 15,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1304.8349170712754,
+      "error": null
+    },
+    {
+      "index": 16,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1505.9483340010047,
+      "error": null
+    },
+    {
+      "index": 17,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 906.0069170081988,
+      "error": null
+    },
+    {
+      "index": 18,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1293.9610839821398,
+      "error": null
+    },
+    {
+      "index": 19,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 598.317458992824,
+      "error": null
+    },
+    {
+      "index": 20,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1597.571040969342,
+      "error": null
+    },
+    {
+      "index": 21,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1589.014708995819,
+      "error": null
+    },
+    {
+      "index": 22,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1495.094500016421,
+      "error": null
+    },
+    {
+      "index": 23,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1178.6342499544844,
+      "error": null
+    },
+    {
+      "index": 24,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1277.9515830334276,
+      "error": null
+    },
+    {
+      "index": 25,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1076.7933749593794,
+      "error": null
+    },
+    {
+      "index": 26,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1194.6123340167105,
+      "error": null
+    },
+    {
+      "index": 27,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1088.6322079459205,
+      "error": null
+    },
+    {
+      "index": 28,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1331.2129590194672,
+      "error": null
+    },
+    {
+      "index": 29,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1413.6873750248924,
+      "error": null
+    },
+    {
+      "index": 30,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1324.8054159339517,
+      "error": null
+    },
+    {
+      "index": 31,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1403.5200829384848,
+      "error": null
+    },
+    {
+      "index": 32,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1510.2954159956425,
+      "error": null
+    },
+    {
+      "index": 33,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1418.1010000174865,
+      "error": null
+    },
+    {
+      "index": 34,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1802.5151669280604,
+      "error": null
+    },
+    {
+      "index": 35,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 2000.464167096652,
+      "error": null
+    },
+    {
+      "index": 36,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1389.4839589484036,
+      "error": null
+    },
+    {
+      "index": 37,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1182.7494169119745,
+      "error": null
+    },
+    {
+      "index": 38,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1006.2093329615891,
+      "error": null
+    },
+    {
+      "index": 39,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 988.5800000047311,
+      "error": null
+    },
+    {
+      "index": 40,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1991.9454170158133,
+      "error": null
+    },
+    {
+      "index": 41,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1186.6772080538794,
+      "error": null
+    },
+    {
+      "index": 42,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1406.6457499284297,
+      "error": null
+    },
+    {
+      "index": 43,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1517.8134579909965,
+      "error": null
+    },
+    {
+      "index": 44,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 890.9026670735329,
+      "error": null
+    },
+    {
+      "index": 45,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1406.9395839469507,
+      "error": null
+    },
+    {
+      "index": 46,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 701.2342079542577,
+      "error": null
+    },
+    {
+      "index": 47,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1793.9068749547005,
+      "error": null
+    },
+    {
+      "index": 48,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1904.0017920779064,
+      "error": null
+    },
+    {
+      "index": 49,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 912.6618340378627,
+      "error": null
+    },
+    {
+      "index": 50,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 798.7239159410819,
+      "error": null
+    },
+    {
+      "index": 51,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1102.0593750290573,
+      "error": null
+    },
+    {
+      "index": 52,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1395.9207499865443,
+      "error": null
+    },
+    {
+      "index": 53,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1095.4973329789937,
+      "error": null
+    },
+    {
+      "index": 54,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1579.266665969044,
+      "error": null
+    },
+    {
+      "index": 55,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1105.3798750508577,
+      "error": null
+    },
+    {
+      "index": 56,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1492.9506659973413,
+      "error": null
+    },
+    {
+      "index": 57,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1291.2873750319704,
+      "error": null
+    },
+    {
+      "index": 58,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 794.8828750522807,
+      "error": null
+    },
+    {
+      "index": 59,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 898.608542047441,
+      "error": null
+    },
+    {
+      "index": 60,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1596.457790932618,
+      "error": null
+    },
+    {
+      "index": 61,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1896.6282909968868,
+      "error": null
+    },
+    {
+      "index": 62,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1310.8663338935003,
+      "error": null
+    },
+    {
+      "index": 63,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 1104.3025410035625,
+      "error": null
+    },
+    {
+      "index": 64,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1710.300208069384,
+      "error": null
+    },
+    {
+      "index": 65,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1718.9516669604927,
+      "error": null
+    },
+    {
+      "index": 66,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "duration_ms": 804.6865840442479,
+      "error": null
+    },
+    {
+      "index": 67,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1707.7347920276225,
+      "error": null
+    },
+    {
+      "index": 68,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 791.7583750095218,
+      "error": null
+    },
+    {
+      "index": 69,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1415.0444580009207,
+      "error": null
+    },
+    {
+      "index": 70,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1410.036375047639,
+      "error": null
+    },
+    {
+      "index": 71,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 784.7202079137787,
+      "error": null
+    },
+    {
+      "index": 72,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1007.972291088663,
+      "error": null
+    },
+    {
+      "index": 73,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 810.1967499824241,
+      "error": null
+    },
+    {
+      "index": 74,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1394.4510000292212,
+      "error": null
+    },
+    {
+      "index": 75,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1304.7857080819085,
+      "error": null
+    },
+    {
+      "index": 76,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 797.9139999952167,
+      "error": null
+    },
+    {
+      "index": 77,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1404.7629579436034,
+      "error": null
+    },
+    {
+      "index": 78,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1380.2617080509663,
+      "error": null
+    },
+    {
+      "index": 79,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1697.9900000151247,
+      "error": null
+    },
+    {
+      "index": 80,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1186.2883750582114,
+      "error": null
+    },
+    {
+      "index": 81,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1004.2434169445187,
+      "error": null
+    },
+    {
+      "index": 82,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1098.5255830455571,
+      "error": null
+    },
+    {
+      "index": 83,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1508.8256670860574,
+      "error": null
+    },
+    {
+      "index": 84,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 911.2939999904484,
+      "error": null
+    },
+    {
+      "index": 85,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1779.3882499681786,
+      "error": null
+    },
+    {
+      "index": 86,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 594.528374960646,
+      "error": null
+    },
+    {
+      "index": 87,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1178.6372499773279,
+      "error": null
+    },
+    {
+      "index": 88,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1584.844542085193,
+      "error": null
+    },
+    {
+      "index": 89,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1112.4225409002975,
+      "error": null
+    },
+    {
+      "index": 90,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 686.0372499795631,
+      "error": null
+    },
+    {
+      "index": 91,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1596.68904193677,
+      "error": null
+    },
+    {
+      "index": 92,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 787.4721250263974,
+      "error": null
+    },
+    {
+      "index": 93,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1303.8957079406828,
+      "error": null
+    },
+    {
+      "index": 94,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1303.9098749868572,
+      "error": null
+    },
+    {
+      "index": 95,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 923.9579580025747,
+      "error": null
+    },
+    {
+      "index": 96,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 807.586207985878,
+      "error": null
+    },
+    {
+      "index": 97,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 693.097708048299,
+      "error": null
+    },
+    {
+      "index": 98,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1112.2796660056338,
+      "error": null
+    },
+    {
+      "index": 99,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1210.4330410948023,
+      "error": null
+    },
+    {
+      "index": 100,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 498.6646670149639,
+      "error": null
+    },
+    {
+      "index": 101,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1382.0843748981133,
+      "error": null
+    },
+    {
+      "index": 102,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 701.6639170469716,
+      "error": null
+    },
+    {
+      "index": 103,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1581.7354579921812,
+      "error": null
+    },
+    {
+      "index": 104,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1190.677542006597,
+      "error": null
+    },
+    {
+      "index": 105,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 499.93970908690244,
+      "error": null
+    },
+    {
+      "index": 106,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 621.6606670059264,
+      "error": null
+    },
+    {
+      "index": 107,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 604.8639999935403,
+      "error": null
+    },
+    {
+      "index": 108,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 685.7990840217099,
+      "error": null
+    },
+    {
+      "index": 109,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1005.225749919191,
+      "error": null
+    },
+    {
+      "index": 110,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1202.6008749380708,
+      "error": null
+    },
+    {
+      "index": 111,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1494.7632079711184,
+      "error": null
+    },
+    {
+      "index": 112,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 393.2711658999324,
+      "error": null
+    },
+    {
+      "index": 113,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 818.0492499377578,
+      "error": null
+    },
+    {
+      "index": 114,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 815.280833048746,
+      "error": null
+    },
+    {
+      "index": 115,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1309.7747080028057,
+      "error": null
+    },
+    {
+      "index": 116,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 910.1784159429371,
+      "error": null
+    },
+    {
+      "index": 117,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1508.9750830084085,
+      "error": null
+    },
+    {
+      "index": 118,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1292.278915992938,
+      "error": null
+    },
+    {
+      "index": 119,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1088.6355420807377,
+      "error": null
+    },
+    {
+      "index": 120,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1086.5499170031399,
+      "error": null
+    },
+    {
+      "index": 121,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 894.3890840746462,
+      "error": null
+    },
+    {
+      "index": 122,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1002.9865839751437,
+      "error": null
+    },
+    {
+      "index": 123,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1196.3524160673842,
+      "error": null
+    },
+    {
+      "index": 124,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 877.6749999960884,
+      "error": null
+    },
+    {
+      "index": 125,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 913.6042079189792,
+      "error": null
+    },
+    {
+      "index": 126,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 803.0619580531493,
+      "error": null
+    },
+    {
+      "index": 127,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1088.6842919280753,
+      "error": null
+    },
+    {
+      "index": 128,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1086.5294580580667,
+      "error": null
+    },
+    {
+      "index": 129,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 700.2000829670578,
+      "error": null
+    },
+    {
+      "index": 130,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 899.0730829536915,
+      "error": null
+    },
+    {
+      "index": 131,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 710.8947499655187,
+      "error": null
+    },
+    {
+      "index": 132,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1401.9351670285687,
+      "error": null
+    },
+    {
+      "index": 133,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1915.5242500128224,
+      "error": null
+    },
+    {
+      "index": 134,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1723.2644580071792,
+      "error": null
+    },
+    {
+      "index": 135,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 889.9959160480648,
+      "error": null
+    },
+    {
+      "index": 136,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 705.9424169128761,
+      "error": null
+    },
+    {
+      "index": 137,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 720.6815000390634,
+      "error": null
+    },
+    {
+      "index": 138,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1601.2639590771869,
+      "error": null
+    },
+    {
+      "index": 139,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 700.4181249067187,
+      "error": null
+    },
+    {
+      "index": 140,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1215.3393329354003,
+      "error": null
+    },
+    {
+      "index": 141,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1301.2690410250798,
+      "error": null
+    },
+    {
+      "index": 142,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1100.2309580799192,
+      "error": null
+    },
+    {
+      "index": 143,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1402.898333966732,
+      "error": null
+    },
+    {
+      "index": 144,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1099.9851250089705,
+      "error": null
+    },
+    {
+      "index": 145,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1683.3239579573274,
+      "error": null
+    },
+    {
+      "index": 146,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1585.5185000691563,
+      "error": null
+    },
+    {
+      "index": 147,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1594.8155410587788,
+      "error": null
+    },
+    {
+      "index": 148,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1389.7749999305233,
+      "error": null
+    },
+    {
+      "index": 149,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1796.3894589338452,
+      "error": null
+    },
+    {
+      "index": 150,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 604.5691670151427,
+      "error": null
+    },
+    {
+      "index": 151,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1391.3833330152556,
+      "error": null
+    },
+    {
+      "index": 152,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1592.5210000714287,
+      "error": null
+    },
+    {
+      "index": 153,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 889.0461670234799,
+      "error": null
+    },
+    {
+      "index": 154,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 807.2803330142051,
+      "error": null
+    },
+    {
+      "index": 155,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 906.5292499726638,
+      "error": null
+    },
+    {
+      "index": 156,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1311.3030000822619,
+      "error": null
+    },
+    {
+      "index": 157,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1402.432958013378,
+      "error": null
+    },
+    {
+      "index": 158,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1604.7643750207499,
+      "error": null
+    },
+    {
+      "index": 159,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "duration_ms": 1590.6269999686629,
+      "error": null
+    },
+    {
+      "index": 160,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1176.2999159982428,
+      "error": null
+    },
+    {
+      "index": 161,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1085.6274579418823,
+      "error": null
+    },
+    {
+      "index": 162,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1094.4135000463575,
+      "error": null
+    },
+    {
+      "index": 163,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 990.5298750381917,
+      "error": null
+    },
+    {
+      "index": 164,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 994.5162909571081,
+      "error": null
+    },
+    {
+      "index": 165,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1410.0293749943376,
+      "error": null
+    },
+    {
+      "index": 166,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1122.107584029436,
+      "error": null
+    },
+    {
+      "index": 167,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1119.2777500255033,
+      "error": null
+    },
+    {
+      "index": 168,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1305.9736660216004,
+      "error": null
+    },
+    {
+      "index": 169,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1123.951792018488,
+      "error": null
+    },
+    {
+      "index": 170,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1405.9757919749245,
+      "error": null
+    },
+    {
+      "index": 171,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1597.104417043738,
+      "error": null
+    },
+    {
+      "index": 172,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1294.37737504486,
+      "error": null
+    },
+    {
+      "index": 173,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1807.1875419700518,
+      "error": null
+    },
+    {
+      "index": 174,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1207.7336249640211,
+      "error": null
+    },
+    {
+      "index": 175,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1294.8186249705032,
+      "error": null
+    },
+    {
+      "index": 176,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1695.7785000558943,
+      "error": null
+    },
+    {
+      "index": 177,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1002.9110840987414,
+      "error": null
+    },
+    {
+      "index": 178,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1092.1106670284644,
+      "error": null
+    },
+    {
+      "index": 179,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1196.962375077419,
+      "error": null
+    },
+    {
+      "index": 180,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1300.2537920838222,
+      "error": null
+    },
+    {
+      "index": 181,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1088.6062500067055,
+      "error": null
+    },
+    {
+      "index": 182,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1090.6455420190468,
+      "error": null
+    },
+    {
+      "index": 183,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1104.8443329054862,
+      "error": null
+    },
+    {
+      "index": 184,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1105.0851249601692,
+      "error": null
+    },
+    {
+      "index": 185,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1091.335583012551,
+      "error": null
+    },
+    {
+      "index": 186,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1007.2136250091717,
+      "error": null
+    },
+    {
+      "index": 187,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 896.4129160158336,
+      "error": null
+    },
+    {
+      "index": 188,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1196.7522910563275,
+      "error": null
+    },
+    {
+      "index": 189,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1098.0203750077635,
+      "error": null
+    },
+    {
+      "index": 190,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1191.974667017348,
+      "error": null
+    },
+    {
+      "index": 191,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1088.2060000440106,
+      "error": null
+    },
+    {
+      "index": 192,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1201.2335839681327,
+      "error": null
+    },
+    {
+      "index": 193,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 610.4262500302866,
+      "error": null
+    },
+    {
+      "index": 194,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 593.7930840300396,
+      "error": null
+    },
+    {
+      "index": 195,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 904.6951669733971,
+      "error": null
+    },
+    {
+      "index": 196,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 901.7257079249248,
+      "error": null
+    },
+    {
+      "index": 197,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 584.8410840844736,
+      "error": null
+    },
+    {
+      "index": 198,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1194.3694170331582,
+      "error": null
+    },
+    {
+      "index": 199,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 792.874125065282,
+      "error": null
+    },
+    {
+      "index": 200,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1206.1277499888092,
+      "error": null
+    },
+    {
+      "index": 201,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 606.4289590576664,
+      "error": null
+    },
+    {
+      "index": 202,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 596.5398330008611,
+      "error": null
+    },
+    {
+      "index": 203,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 486.0664170701057,
+      "error": null
+    },
+    {
+      "index": 204,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1203.5608330043033,
+      "error": null
+    },
+    {
+      "index": 205,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1102.7669999748468,
+      "error": null
+    },
+    {
+      "index": 206,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 796.7196670360863,
+      "error": null
+    },
+    {
+      "index": 207,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 904.0037920931354,
+      "error": null
+    },
+    {
+      "index": 208,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1203.771625063382,
+      "error": null
+    },
+    {
+      "index": 209,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1004.6879160217941,
+      "error": null
+    },
+    {
+      "index": 210,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 718.8882920891047,
+      "error": null
+    },
+    {
+      "index": 211,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 702.0371250109747,
+      "error": null
+    },
+    {
+      "index": 212,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1007.1512920549139,
+      "error": null
+    },
+    {
+      "index": 213,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 798.9895830396563,
+      "error": null
+    },
+    {
+      "index": 214,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1007.7803749591112,
+      "error": null
+    },
+    {
+      "index": 215,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 993.1168330367655,
+      "error": null
+    },
+    {
+      "index": 216,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 599.6203750837594,
+      "error": null
+    },
+    {
+      "index": 217,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 789.7602079901844,
+      "error": null
+    },
+    {
+      "index": 218,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1293.1362920207903,
+      "error": null
+    },
+    {
+      "index": 219,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 915.6046250136569,
+      "error": null
+    },
+    {
+      "index": 220,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 900.0906249275431,
+      "error": null
+    },
+    {
+      "index": 221,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1185.0616249721497,
+      "error": null
+    },
+    {
+      "index": 222,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 890.9291659947485,
+      "error": null
+    },
+    {
+      "index": 223,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 875.813249964267,
+      "error": null
+    },
+    {
+      "index": 224,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 795.8934579510242,
+      "error": null
+    },
+    {
+      "index": 225,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 806.6772919846699,
+      "error": null
+    },
+    {
+      "index": 226,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 993.020833004266,
+      "error": null
+    },
+    {
+      "index": 227,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 605.5752499960363,
+      "error": null
+    },
+    {
+      "index": 228,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 786.3431669538841,
+      "error": null
+    },
+    {
+      "index": 229,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 791.3807079894468,
+      "error": null
+    },
+    {
+      "index": 230,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 796.4486660202965,
+      "error": null
+    },
+    {
+      "index": 231,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 709.565959055908,
+      "error": null
+    },
+    {
+      "index": 232,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 997.1193749224767,
+      "error": null
+    },
+    {
+      "index": 233,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 610.6537920422852,
+      "error": null
+    },
+    {
+      "index": 234,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 800.8140419842675,
+      "error": null
+    },
+    {
+      "index": 235,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 606.7444999935105,
+      "error": null
+    },
+    {
+      "index": 236,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1026.3602080522105,
+      "error": null
+    },
+    {
+      "index": 237,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 904.4863749295473,
+      "error": null
+    },
+    {
+      "index": 238,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1003.1773749506101,
+      "error": null
+    },
+    {
+      "index": 239,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 906.7257090937346,
+      "error": null
+    },
+    {
+      "index": 240,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1000.4559169756249,
+      "error": null
+    },
+    {
+      "index": 241,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 501.1605409672484,
+      "error": null
+    },
+    {
+      "index": 242,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 972.4636670434847,
+      "error": null
+    },
+    {
+      "index": 243,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 899.275292060338,
+      "error": null
+    },
+    {
+      "index": 244,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 408.4381670691073,
+      "error": null
+    },
+    {
+      "index": 245,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1083.6775839561597,
+      "error": null
+    },
+    {
+      "index": 246,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 986.0122089739889,
+      "error": null
+    },
+    {
+      "index": 247,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 994.4727499969304,
+      "error": null
+    },
+    {
+      "index": 248,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 502.1836659871042,
+      "error": null
+    },
+    {
+      "index": 249,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 488.22366597596556,
+      "error": null
+    },
+    {
+      "index": 250,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 888.5953329736367,
+      "error": null
+    },
+    {
+      "index": 251,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 813.1588749820367,
+      "error": null
+    },
+    {
+      "index": 252,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 493.9482919871807,
+      "error": null
+    },
+    {
+      "index": 253,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 401.6502919839695,
+      "error": null
+    },
+    {
+      "index": 254,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 807.7881659846753,
+      "error": null
+    },
+    {
+      "index": 255,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 899.0845829248428,
+      "error": null
+    },
+    {
+      "index": 256,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 625.2421659883112,
+      "error": null
+    },
+    {
+      "index": 257,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 720.5427919980139,
+      "error": null
+    },
+    {
+      "index": 258,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 809.1448330087587,
+      "error": null
+    },
+    {
+      "index": 259,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 995.2333749970421,
+      "error": null
+    },
+    {
+      "index": 260,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 805.1996250869706,
+      "error": null
+    },
+    {
+      "index": 261,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1210.7068749610335,
+      "error": null
+    },
+    {
+      "index": 262,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1107.7067500445992,
+      "error": null
+    },
+    {
+      "index": 263,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 783.2891660509631,
+      "error": null
+    },
+    {
+      "index": 264,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 579.1895829606801,
+      "error": null
+    },
+    {
+      "index": 265,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 815.3137499466538,
+      "error": null
+    },
+    {
+      "index": 266,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 603.7422500085086,
+      "error": null
+    },
+    {
+      "index": 267,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 813.7758750235662,
+      "error": null
+    },
+    {
+      "index": 268,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 812.710625003092,
+      "error": null
+    },
+    {
+      "index": 269,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 704.2811249848455,
+      "error": null
+    },
+    {
+      "index": 270,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1007.9450840130448,
+      "error": null
+    },
+    {
+      "index": 271,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 976.8782500177622,
+      "error": null
+    },
+    {
+      "index": 272,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1095.1296669663861,
+      "error": null
+    },
+    {
+      "index": 273,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 784.8204160109162,
+      "error": null
+    },
+    {
+      "index": 274,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1001.0281659197062,
+      "error": null
+    },
+    {
+      "index": 275,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 883.4194169612601,
+      "error": null
+    },
+    {
+      "index": 276,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 789.4516669912264,
+      "error": null
+    },
+    {
+      "index": 277,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 917.249417048879,
+      "error": null
+    },
+    {
+      "index": 278,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 605.6825000559911,
+      "error": null
+    },
+    {
+      "index": 279,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1006.7990000825375,
+      "error": null
+    },
+    {
+      "index": 280,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 1082.1171670686454,
+      "error": null
+    },
+    {
+      "index": 281,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 604.8503339989111,
+      "error": null
+    },
+    {
+      "index": 282,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 876.7168750055134,
+      "error": null
+    },
+    {
+      "index": 283,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 798.8773750839755,
+      "error": null
+    },
+    {
+      "index": 284,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 489.3648329889402,
+      "error": null
+    },
+    {
+      "index": 285,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 585.0157500244677,
+      "error": null
+    },
+    {
+      "index": 286,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 477.23870805930346,
+      "error": null
+    },
+    {
+      "index": 287,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "duration_ms": 438.94974992144853,
+      "error": null
+    }
+  ],
+  "invariants": {
+    "successful_reservations": 64,
+    "database_reservations_via_api": 64,
+    "remaining_stock": 0,
+    "no_overselling": true,
+    "stock_accounting_matches": true,
+    "reservation_count_matches": true
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T00:05:11.495995+00:00"
+}

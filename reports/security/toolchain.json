@@ -1,0 +1,33 @@
+{
+  "verified_at_date": "2026-09-13",
+  "method": "git ls-remote official upstream major release tags; official GitHub release API SHA256 asset digests",
+  "actions": {
+    "actions/checkout@v6": "d23441a48e516b6c34aea4fa41551a30e30af803",
+    "actions/setup-java@v5": "b6effb05e454b25005698d916606bdc6ffcbf961",
+    "actions/upload-artifact@v6": "b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+    "actions/download-artifact@v7": "37930b1c2abaa49bbe596cd826c3c89aef350131",
+    "hashicorp/setup-terraform@v3": "b9cd54a3c349d3f38e8881555d616ced269862dd",
+    "aws-actions/configure-aws-credentials@v5": "cabfdba3510de1431bac9dba27511d97497fc100"
+  },
+  "trivy": {
+    "version": "0.74.0",
+    "release": "https://github.com/aquasecurity/trivy/releases/tag/v0.74.0",
+    "asset_sha256": {
+      "trivy_0.74.0_Linux-64bit.tar.gz": "2ae6fe3ee734b7fdf11335663e18c75ea12dccc76062f09f164a3b0f8be4371a",
+      "trivy_0.74.0_macOS-ARM64.tar.gz": "1caada5e0e2091909357c7525d3aa76f4b660b13821bc143b190c7483e31cc11"
+    }
+  },
+  "actionlint": {
+    "version": "1.7.12",
+    "release": "https://github.com/rhysd/actionlint/releases/tag/v1.7.12",
+    "asset_sha256": "aba9ced2dee8d27fecca3dc7feb1a7f9a52caefa1eb46f3271ea66b6e0e6953f",
+    "validation": "ci.yml, publish.yml, deploy.yml; passed without shellcheck integration"
+  },
+  "release_policy_tests": {
+    "ran_at": "2026-09-14T00:12:08.830422+00:00",
+    "test_count": 9,
+    "failures": 0,
+    "errors": 0,
+    "command": "python3 scripts/test_release_security.py"
+  }
+}

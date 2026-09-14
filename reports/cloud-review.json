@@ -1,0 +1,60 @@
+{
+  "reviewed_at": "2026-09-14T01:13:23.415057+00:00",
+  "scope": [
+    "infra/aws",
+    "infra/bootstrap",
+    ".github/workflows",
+    "scripts/deploy-ecs.sh",
+    "scripts/migrate-ecs.sh"
+  ],
+  "cloud_resources_created": false,
+  "aws_metadata_requests_made": false,
+  "fixes": [
+    {
+      "problem": "Redirects and unrelated HTTP 200 pages could be accepted as application readiness.",
+      "change": "Require HTTP 200 plus JSON status UP; restore previous service revision/count otherwise."
+    },
+    {
+      "problem": "A missing/duplicate inventory container or invalid registration response could progress to service update.",
+      "change": "Require exactly one inventory container and a valid registered task-definition ARN before updating the service."
+    },
+    {
+      "problem": "Cross-account/region image and secret inputs could pass validation while release IAM policies target the local account/region; ACM/OIDC location constraints were not enforced.",
+      "change": "Terraform lifecycle preconditions now enforce the stack account/region and exact GitHub OIDC provider identity."
+    }
+  ],
+  "targeted_validation": [
+    {
+      "suite": "deployment scripts",
+      "tests": 14,
+      "passed": 14,
+      "execution": "offline AWS/HTTP stubs"
+    },
+    {
+      "suite": "cloud preflight",
+      "tests": 14,
+      "passed": 14,
+      "execution": "offline validation and synthetic AWS metadata"
+    },
+    {
+      "suite": "Terraform account boundaries",
+      "tests": 5,
+      "passed": 5,
+      "execution": "mock_provider AWS plan tests; no infrastructure created"
+    },
+    {
+      "suite": "Terraform formatting",
+      "passed": true
+    },
+    {
+      "suite": "all four GitHub workflows including operational-drills",
+      "passed": true
+    }
+  ],
+  "preflight_evidence": "reports/cloud-readiness.json",
+  "blockers": [
+    "Required AWS deployment settings have not been supplied.",
+    "No real AWS metadata checks or deployment executed.",
+    "Cloud service availability, identity provider, DNS, quotas, IAM enforcement and recovery remain unverified in AWS."
+  ]
+}

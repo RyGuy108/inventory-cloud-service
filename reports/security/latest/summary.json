@@ -1,0 +1,27 @@
+{
+  "scanned_at": "2026-09-14T00:18:09.098563+00:00",
+  "image": "sha256:5618c6248a1c1de311fe52169426653beb0f89ed386497c4d1cb38d1c4f694f6",
+  "image_id": "sha256:5618c6248a1c1de311fe52169426653beb0f89ed386497c4d1cb38d1c4f694f6",
+  "jar_sha256": "6cbd54d54ede9e58007eabd49b1c6731c634f39acd13ada929cb14272ba55f5b",
+  "blocking_severities": [
+    "HIGH",
+    "CRITICAL"
+  ],
+  "ignore_unfixed": false,
+  "scan_errors": false,
+  "reports": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "image_platform": "linux/arm64",
+  "passed": true
+}

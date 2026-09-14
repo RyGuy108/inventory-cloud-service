@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-09-14T01:15:47.242378+00:00",
+  "status": "passed",
+  "scope": "existing local Compose database",
+  "before": {
+    "products": 2,
+    "reservations": 2,
+    "migrations": 1,
+    "product_fingerprint": "6ea478b13f502738bd3a5887c66e5cec",
+    "reservation_fingerprint": "e0964ae171935367bc2d0cdc28a7cbf6"
+  },
+  "private_backup": ".local/backups/before-idempotency-20260913-201547.dump",
+  "backup_bytes": 7690,
+  "after": {
+    "products": 2,
+    "reservations": 2,
+    "migrations": 2,
+    "product_fingerprint": "6ea478b13f502738bd3a5887c66e5cec",
+    "reservation_fingerprint": "e0964ae171935367bc2d0cdc28a7cbf6"
+  },
+  "existing_business_data_preserved": true
+}

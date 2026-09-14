@@ -1,0 +1,87 @@
+name: Publish verified image
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/ci.yml
+    with:
+      release_bundle: true
+    permissions:
+      contents: read
+  publish:
+    needs: verify
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      EXPECTED_IMAGE_ID: ${{ needs.verify.outputs.image_id }}
+      EXPECTED_ARCHIVE_SHA256: ${{ needs.verify.outputs.archive_sha256 }}
+      RELEASE_TAG: git-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      # No checkout and no project scripts run in the credential-bearing job.
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: verified-image-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release
+      - name: Check and load the verified artifact without rebuilding it
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_ARCHIVE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$EXPECTED_IMAGE_ID" =~ ^sha256:[0-9a-f]{64}$ ]]
+          printf '%s  %s\n' "$EXPECTED_ARCHIVE_SHA256" release/image.tar | sha256sum -c -
+          docker load --input release/image.tar
+          actual_image_id=$(docker image inspect inventory-cloud-service:verified --format '{{.Id}}')
+          [[ "$actual_image_id" == "$EXPECTED_IMAGE_ID" ]]
+          echo "DOCKER_CONFIG=$RUNNER_TEMP/inventory-docker-auth" >> "$GITHUB_ENV"
+      - uses: aws-actions/configure-aws-credentials@cabfdba3510de1431bac9dba27511d97497fc100 # v5
+        with:
+          role-to-assume: ${{ vars.AWS_PUBLISH_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: inventory-publish-${{ github.run_id }}
+      - name: Publish immutable release and record deployable digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${AWS_REGION:?Set AWS_REGION}"
+          : "${ECR_REPOSITORY:?Set ECR_REPOSITORY}"
+          repository_uri=$(aws ecr describe-repositories --repository-names "$ECR_REPOSITORY" --query 'repositories[0].repositoryUri' --output text)
+          registry=${repository_uri%%/*}
+          mkdir -p "$DOCKER_CONFIG"
+          aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$registry"
+          docker tag "$EXPECTED_IMAGE_ID" "$repository_uri:$RELEASE_TAG"
+          docker push "$repository_uri:$RELEASE_TAG"
+          image_digest=$(aws ecr describe-images --repository-name "$ECR_REPOSITORY" --image-ids "imageTag=$RELEASE_TAG" --query 'imageDetails[0].imageDigest' --output text)
+          [[ "$image_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          jq -n --arg image "$repository_uri@$image_digest" --arg digest "$image_digest" \
+            --arg tag "$RELEASE_TAG" --arg source "$GITHUB_SHA" --arg image_id "$EXPECTED_IMAGE_ID" \
+            --arg archive_sha256 "$EXPECTED_ARCHIVE_SHA256" \
+            '{image:$image, image_digest:$digest, tag:$tag, source_commit:$source, verified_image_id:$image_id, archive_sha256:$archive_sha256}' > release-manifest.json
+          {
+            echo '### Verified release published'
+            echo "Image: \`$repository_uri@$image_digest\`"
+            echo ''
+            echo "Run **Deploy existing image** on main with image_digest \`$image_digest\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Retain release manifest
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: release-manifest-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-manifest.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Remove temporary registry login
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/inventory-docker-auth"

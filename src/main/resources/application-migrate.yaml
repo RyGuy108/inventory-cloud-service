@@ -1,0 +1,8 @@
+spring:
+  main:
+    web-application-type: none
+    banner-mode: "off"
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME:inventory}
+    password: ${DB_PASSWORD}

@@ -1,0 +1,149 @@
+{
+  "started_at": "2026-09-14T17:16:28.418249+00:00",
+  "passed": true,
+  "checks": [
+    "candidate applies one additive migration without changing prior schema history or Java code",
+    "the previous application continues reading existing data after the candidate migration",
+    "derived candidate serves its business API but returns readiness404 and becomes Docker-unhealthy",
+    "exact prior image restores readiness, original records, and keyed reservation replay on the same API address",
+    "restored image cancels once and replaying the cancelled request never creates another reservation",
+    "candidate's additive column and successful migration remain intact after image rollback"
+  ],
+  "scope": "disposable local image replacement; existing Compose untouched; not an ECS rollback",
+  "run_id": "ba8d70f4f0f442839c541cfb8868a775",
+  "application_image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+  "postgres_image_id": "sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0",
+  "docker_server_version": "29.5.2",
+  "docker_os": "Ubuntu 24.04.4 LTS",
+  "docker_architecture": "aarch64",
+  "docker_cpus": 4,
+  "docker_memory_bytes": 6197448704,
+  "application_limits": {
+    "cpus": 1,
+    "memory_bytes": 805306368
+  },
+  "database_limits": {
+    "cpus": 1,
+    "memory_bytes": 402653184,
+    "storage": "disposable tmpfs"
+  },
+  "authentication": "local HTTP Basic with generated per-run credentials",
+  "database_runtime_user": "inventory_app",
+  "schema_preparation": "real one-shot migrate profile using separate owner credentials",
+  "runtime_flyway_enabled": false,
+  "database_host_authentication": "scram-sha-256",
+  "migration_runs": [
+    {
+      "role": "baseline-migrate",
+      "exit_code": 0,
+      "duration_seconds": 3.8813668749062344
+    }
+  ],
+  "jdbc_timeout_override_seconds": {
+    "socketTimeout": 5,
+    "connectTimeout": 3
+  },
+  "base_release_contract": {
+    "image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+    "platform": "linux/arm64",
+    "schemaVersion": 1,
+    "service": "inventory-cloud-service",
+    "capabilities": [
+      "reservation-idempotency/v1",
+      "restricted-runtime/v1",
+      "separate-migrations/v1"
+    ],
+    "contract_sha256": "c3576d7ca0136f147cb05e898bed99244f851b5f80dac0f1d85c196277d4bb43"
+  },
+  "runtime_login": {
+    "fresh_tcp_connection": true,
+    "accepted": true,
+    "runtime_permissions_checked": true,
+    "expected_authentication_rejection": false
+  },
+  "stable_loopback_port": 32791,
+  "temporary_base_tag": "inventory-drill-ba8d70f4f0f4-rollback-source:fixture",
+  "candidate_image_id": "sha256:1294ff957471edb0a9dcf1e069f7af0c32d2be95bb1169490d19f0b1a0daa710",
+  "candidate_release_contract": {
+    "image_id": "sha256:1294ff957471edb0a9dcf1e069f7af0c32d2be95bb1169490d19f0b1a0daa710",
+    "platform": "linux/arm64",
+    "schemaVersion": 1,
+    "service": "inventory-cloud-service",
+    "capabilities": [
+      "reservation-idempotency/v1",
+      "restricted-runtime/v1",
+      "separate-migrations/v1"
+    ],
+    "contract_sha256": "c3576d7ca0136f147cb05e898bed99244f851b5f80dac0f1d85c196277d4bb43"
+  },
+  "candidate_fixture_migration": {
+    "version": "3",
+    "resource": "BOOT-INF/classes/db/migration/V3__rollback_drill_add_optional_note.sql",
+    "change": "Add nullable reservations.rollback_drill_note; no business-code changes"
+  },
+  "candidate_migration": {
+    "exit_code": 0,
+    "confirmed_stopped": true,
+    "image_id": "sha256:1294ff957471edb0a9dcf1e069f7af0c32d2be95bb1169490d19f0b1a0daa710"
+  },
+  "schema_history_before": [
+    {
+      "installed_rank": 1,
+      "version": "1",
+      "description": "create inventory tables",
+      "checksum": 73259722,
+      "success": true
+    },
+    {
+      "installed_rank": 2,
+      "version": "2",
+      "description": "reservation idempotency",
+      "checksum": -1421983899,
+      "success": true
+    }
+  ],
+  "schema_history_after_candidate": [
+    {
+      "installed_rank": 1,
+      "version": "1",
+      "description": "create inventory tables",
+      "checksum": 73259722,
+      "success": true
+    },
+    {
+      "installed_rank": 2,
+      "version": "2",
+      "description": "reservation idempotency",
+      "checksum": -1421983899,
+      "success": true
+    },
+    {
+      "installed_rank": 3,
+      "version": "3",
+      "description": "rollback drill add optional note",
+      "checksum": -142386270,
+      "success": true
+    }
+  ],
+  "candidate_failure": {
+    "business_api_http_status": 200,
+    "configured_readiness_http_status": 404,
+    "docker_health_status": "unhealthy",
+    "image_id": "sha256:1294ff957471edb0a9dcf1e069f7af0c32d2be95bb1169490d19f0b1a0daa710"
+  },
+  "restored_image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+  "timings_seconds": {
+    "candidate_failure_to_restored_readiness": 12.78129912505392,
+    "baseline_stop_to_restored_readiness": 25.600343375001103
+  },
+  "preserved_records": {
+    "product_id": "22228516-e4fe-4d8b-b199-783c369e90a4",
+    "reservation_id": "0f6bdaca-a807-49e4-a244-3edf89a71a07",
+    "final_stock": 17,
+    "final_reservation_status": "CANCELLED"
+  },
+  "cleanup_errors": [],
+  "temporary_base_tag_removed": true,
+  "candidate_image_removed": true,
+  "finished_at": "2026-09-14T17:17:26.341746+00:00"
+}

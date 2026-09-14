@@ -1,0 +1,30 @@
+{
+  "scanned_at": "2026-09-14T00:03:15.907659+00:00",
+  "image": "inventory-cloud-service-app:latest",
+  "image_id": "sha256:a15a6e1cec21fbb87def55c645a92bff59f38e671ec0130711b4c213064c60d0",
+  "jar_sha256": "9d69edbd311563983f39f32f10c36a7b07ff45970a1cec7c9fb214c8429aef44",
+  "blocking_severities": [
+    "HIGH",
+    "CRITICAL"
+  ],
+  "ignore_unfixed": false,
+  "scan_errors": false,
+  "reports": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {
+        "CRITICAL": 3
+      }
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 52,
+        "LOW": 16,
+        "CRITICAL": 3
+      }
+    }
+  },
+  "passed": false,
+  "image_platform": "linux/arm64"
+}

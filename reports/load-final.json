@@ -1,0 +1,2702 @@
+{
+  "started_at": "2026-09-14T00:23:25.630468+00:00",
+  "status": "passed",
+  "drill": "bounded_local_contention_and_reads",
+  "environment": {
+    "run_id": "9dfe41431c0342a8be8a760a1aec8150",
+    "application_image_id": "sha256:5618c6248a1c1de311fe52169426653beb0f89ed386497c4d1cb38d1c4f694f6",
+    "postgres_image_id": "sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0",
+    "docker_server_version": "29.5.2",
+    "docker_os": "Ubuntu 24.04.4 LTS",
+    "docker_architecture": "aarch64",
+    "docker_cpus": 4,
+    "docker_memory_bytes": 6197448704,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "workload": {
+    "requested_requests": 288,
+    "concurrency": 8,
+    "request_issue_deadline_seconds": 50.0,
+    "per_request_timeout_seconds": 3,
+    "warmup_requests_excluded": 8,
+    "initial_stock": 64,
+    "phases": [
+      {
+        "operation": "reserve_one_unit",
+        "requests": 160
+      },
+      {
+        "operation": "read_product",
+        "requests": 128
+      }
+    ],
+    "connection_policy": "new HTTP connection for each request",
+    "percentile_method": "nearest rank",
+    "clock": "time.monotonic",
+    "setup_and_validation_excluded": true
+  },
+  "results": {
+    "requests": 288,
+    "status_counts": {
+      "200": 128,
+      "201": 64,
+      "409": 96
+    },
+    "latency_ms": {
+      "p50": 1289.580833981745,
+      "p95": 1816.3419170305133,
+      "p99": 2022.7222919929773,
+      "max": 2107.7239169972017
+    },
+    "elapsed_seconds": 45.80379216594156,
+    "requests_per_second": 6.28768899650516,
+    "successful_2xx": 192,
+    "expected_409_conflicts": 96,
+    "unexpected_errors": 0,
+    "by_operation": {
+      "reserve": {
+        "requests": 160,
+        "status_counts": {
+          "201": 64,
+          "409": 96
+        },
+        "latency_ms": {
+          "p50": 1298.8892500288785,
+          "p95": 1804.1729999240488,
+          "p99": 2022.7222919929773,
+          "max": 2107.7239169972017
+        }
+      },
+      "read": {
+        "requests": 128,
+        "status_counts": {
+          "200": 128
+        },
+        "latency_ms": {
+          "p50": 1284.8424579715356,
+          "p95": 1816.3419170305133,
+          "p99": 1917.2967500053346,
+          "max": 2096.4520829729736
+        }
+      }
+    }
+  },
+  "samples": [
+    {
+      "index": 0,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 585.0161249982193,
+      "error": null
+    },
+    {
+      "index": 1,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1090.4245000565425,
+      "error": null
+    },
+    {
+      "index": 2,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 789.8904170142487,
+      "error": null
+    },
+    {
+      "index": 3,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1079.9648750107735,
+      "error": null
+    },
+    {
+      "index": 4,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1677.5419579353184,
+      "error": null
+    },
+    {
+      "index": 5,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1573.2526670908555,
+      "error": null
+    },
+    {
+      "index": 6,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1376.4920419780537,
+      "error": null
+    },
+    {
+      "index": 7,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1473.5288328956813,
+      "error": null
+    },
+    {
+      "index": 8,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1498.9503340329975,
+      "error": null
+    },
+    {
+      "index": 9,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1394.899666076526,
+      "error": null
+    },
+    {
+      "index": 10,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1685.3065830655396,
+      "error": null
+    },
+    {
+      "index": 11,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1578.1224169768393,
+      "error": null
+    },
+    {
+      "index": 12,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 996.3621660135686,
+      "error": null
+    },
+    {
+      "index": 13,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1397.7874999400228,
+      "error": null
+    },
+    {
+      "index": 14,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1508.607125026174,
+      "error": null
+    },
+    {
+      "index": 15,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 896.7310830485076,
+      "error": null
+    },
+    {
+      "index": 16,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1499.9895410146564,
+      "error": null
+    },
+    {
+      "index": 17,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1103.440665989183,
+      "error": null
+    },
+    {
+      "index": 18,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1503.201458021067,
+      "error": null
+    },
+    {
+      "index": 19,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1314.3394580110908,
+      "error": null
+    },
+    {
+      "index": 20,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1719.2059170920402,
+      "error": null
+    },
+    {
+      "index": 21,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1212.129957973957,
+      "error": null
+    },
+    {
+      "index": 22,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1108.6279170121998,
+      "error": null
+    },
+    {
+      "index": 23,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1509.0126669965684,
+      "error": null
+    },
+    {
+      "index": 24,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1595.9629999706522,
+      "error": null
+    },
+    {
+      "index": 25,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1700.3345830598846,
+      "error": null
+    },
+    {
+      "index": 26,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 2107.7239169972017,
+      "error": null
+    },
+    {
+      "index": 27,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1991.856834036298,
+      "error": null
+    },
+    {
+      "index": 28,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 706.6618750104681,
+      "error": null
+    },
+    {
+      "index": 29,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1103.2372079789639,
+      "error": null
+    },
+    {
+      "index": 30,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 801.9935000920668,
+      "error": null
+    },
+    {
+      "index": 31,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1197.6069579832256,
+      "error": null
+    },
+    {
+      "index": 32,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1607.1326249511912,
+      "error": null
+    },
+    {
+      "index": 33,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1598.3477500267327,
+      "error": null
+    },
+    {
+      "index": 34,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1896.2559170322493,
+      "error": null
+    },
+    {
+      "index": 35,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1207.080207997933,
+      "error": null
+    },
+    {
+      "index": 36,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1008.1422079820186,
+      "error": null
+    },
+    {
+      "index": 37,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1399.0156250074506,
+      "error": null
+    },
+    {
+      "index": 38,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1578.413916984573,
+      "error": null
+    },
+    {
+      "index": 39,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1003.1258329981938,
+      "error": null
+    },
+    {
+      "index": 40,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1183.042792021297,
+      "error": null
+    },
+    {
+      "index": 41,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 790.2420420432463,
+      "error": null
+    },
+    {
+      "index": 42,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1183.455124963075,
+      "error": null
+    },
+    {
+      "index": 43,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1082.909082993865,
+      "error": null
+    },
+    {
+      "index": 44,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1501.665374962613,
+      "error": null
+    },
+    {
+      "index": 45,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1498.0971670011058,
+      "error": null
+    },
+    {
+      "index": 46,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 900.1445830799639,
+      "error": null
+    },
+    {
+      "index": 47,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1397.94295898173,
+      "error": null
+    },
+    {
+      "index": 48,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1112.5778750283644,
+      "error": null
+    },
+    {
+      "index": 49,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 908.7007089983672,
+      "error": null
+    },
+    {
+      "index": 50,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1011.0517920693383,
+      "error": null
+    },
+    {
+      "index": 51,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1195.7387500442564,
+      "error": null
+    },
+    {
+      "index": 52,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 909.0993750141934,
+      "error": null
+    },
+    {
+      "index": 53,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1797.1691249404103,
+      "error": null
+    },
+    {
+      "index": 54,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1095.1859160559252,
+      "error": null
+    },
+    {
+      "index": 55,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1788.6982909403741,
+      "error": null
+    },
+    {
+      "index": 56,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1104.7813340555876,
+      "error": null
+    },
+    {
+      "index": 57,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 999.3960830615833,
+      "error": null
+    },
+    {
+      "index": 58,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1406.523291952908,
+      "error": null
+    },
+    {
+      "index": 59,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 906.1893330654129,
+      "error": null
+    },
+    {
+      "index": 60,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1388.6775829596445,
+      "error": null
+    },
+    {
+      "index": 61,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 615.6872080173343,
+      "error": null
+    },
+    {
+      "index": 62,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 603.0774579849094,
+      "error": null
+    },
+    {
+      "index": 63,
+      "operation": "reserve",
+      "status": 201,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 716.4552919566631,
+      "error": null
+    },
+    {
+      "index": 64,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1311.7839170154184,
+      "error": null
+    },
+    {
+      "index": 65,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 798.4799999976531,
+      "error": null
+    },
+    {
+      "index": 66,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1107.5005839811638,
+      "error": null
+    },
+    {
+      "index": 67,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 608.5071659181267,
+      "error": null
+    },
+    {
+      "index": 68,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 998.7751659937203,
+      "error": null
+    },
+    {
+      "index": 69,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 807.0265830028802,
+      "error": null
+    },
+    {
+      "index": 70,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1100.5101249320433,
+      "error": null
+    },
+    {
+      "index": 71,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 881.9810829591006,
+      "error": null
+    },
+    {
+      "index": 72,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 898.9481249591336,
+      "error": null
+    },
+    {
+      "index": 73,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 799.24962494988,
+      "error": null
+    },
+    {
+      "index": 74,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1298.8892500288785,
+      "error": null
+    },
+    {
+      "index": 75,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 712.4717499827966,
+      "error": null
+    },
+    {
+      "index": 76,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 991.2223749561235,
+      "error": null
+    },
+    {
+      "index": 77,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1411.07995796483,
+      "error": null
+    },
+    {
+      "index": 78,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1492.3951660748571,
+      "error": null
+    },
+    {
+      "index": 79,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 618.0404589977115,
+      "error": null
+    },
+    {
+      "index": 80,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 801.2655419297516,
+      "error": null
+    },
+    {
+      "index": 81,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1604.8058749875054,
+      "error": null
+    },
+    {
+      "index": 82,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 887.5041659921408,
+      "error": null
+    },
+    {
+      "index": 83,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1599.1157080279663,
+      "error": null
+    },
+    {
+      "index": 84,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1410.3593749459833,
+      "error": null
+    },
+    {
+      "index": 85,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 882.202957989648,
+      "error": null
+    },
+    {
+      "index": 86,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1490.3629169566557,
+      "error": null
+    },
+    {
+      "index": 87,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 909.3582500936463,
+      "error": null
+    },
+    {
+      "index": 88,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1905.4348750505596,
+      "error": null
+    },
+    {
+      "index": 89,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1109.3470419291407,
+      "error": null
+    },
+    {
+      "index": 90,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1706.2009579967707,
+      "error": null
+    },
+    {
+      "index": 91,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1395.4296249430627,
+      "error": null
+    },
+    {
+      "index": 92,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1505.5989169050008,
+      "error": null
+    },
+    {
+      "index": 93,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1193.621166050434,
+      "error": null
+    },
+    {
+      "index": 94,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 787.6219169702381,
+      "error": null
+    },
+    {
+      "index": 95,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1711.5453329170123,
+      "error": null
+    },
+    {
+      "index": 96,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1695.070374989882,
+      "error": null
+    },
+    {
+      "index": 97,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1901.0653749573976,
+      "error": null
+    },
+    {
+      "index": 98,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 996.8715419527143,
+      "error": null
+    },
+    {
+      "index": 99,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1688.564999960363,
+      "error": null
+    },
+    {
+      "index": 100,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 802.8118329821154,
+      "error": null
+    },
+    {
+      "index": 101,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1504.6558750327677,
+      "error": null
+    },
+    {
+      "index": 102,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1188.636332983151,
+      "error": null
+    },
+    {
+      "index": 103,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1498.4342500101775,
+      "error": null
+    },
+    {
+      "index": 104,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1804.1729999240488,
+      "error": null
+    },
+    {
+      "index": 105,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 697.366000036709,
+      "error": null
+    },
+    {
+      "index": 106,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1388.135333894752,
+      "error": null
+    },
+    {
+      "index": 107,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 696.1281250696629,
+      "error": null
+    },
+    {
+      "index": 108,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1395.1413750182837,
+      "error": null
+    },
+    {
+      "index": 109,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1580.1385000813752,
+      "error": null
+    },
+    {
+      "index": 110,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1498.4979160362855,
+      "error": null
+    },
+    {
+      "index": 111,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 999.8089170549065,
+      "error": null
+    },
+    {
+      "index": 112,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1408.0342079978436,
+      "error": null
+    },
+    {
+      "index": 113,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 884.1004578862339,
+      "error": null
+    },
+    {
+      "index": 114,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1389.5598748931661,
+      "error": null
+    },
+    {
+      "index": 115,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1397.3642499186099,
+      "error": null
+    },
+    {
+      "index": 116,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1006.7693329183385,
+      "error": null
+    },
+    {
+      "index": 117,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 711.8618750246242,
+      "error": null
+    },
+    {
+      "index": 118,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1608.8693329365924,
+      "error": null
+    },
+    {
+      "index": 119,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1014.5883329678327,
+      "error": null
+    },
+    {
+      "index": 120,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1701.4053330058232,
+      "error": null
+    },
+    {
+      "index": 121,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 695.822749985382,
+      "error": null
+    },
+    {
+      "index": 122,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1601.6500829719007,
+      "error": null
+    },
+    {
+      "index": 123,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1289.7193749668077,
+      "error": null
+    },
+    {
+      "index": 124,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1324.4438749970868,
+      "error": null
+    },
+    {
+      "index": 125,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 682.7397500164807,
+      "error": null
+    },
+    {
+      "index": 126,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1104.2878750013188,
+      "error": null
+    },
+    {
+      "index": 127,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1199.9134169891477,
+      "error": null
+    },
+    {
+      "index": 128,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1617.2617500415072,
+      "error": null
+    },
+    {
+      "index": 129,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1914.2989580286667,
+      "error": null
+    },
+    {
+      "index": 130,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 2022.7222919929773,
+      "error": null
+    },
+    {
+      "index": 131,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1000.2400829689577,
+      "error": null
+    },
+    {
+      "index": 132,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1591.8625419726595,
+      "error": null
+    },
+    {
+      "index": 133,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1502.7354579651728,
+      "error": null
+    },
+    {
+      "index": 134,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1798.080625012517,
+      "error": null
+    },
+    {
+      "index": 135,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 986.4484999561682,
+      "error": null
+    },
+    {
+      "index": 136,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1977.632415946573,
+      "error": null
+    },
+    {
+      "index": 137,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 808.2474590046331,
+      "error": null
+    },
+    {
+      "index": 138,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1611.6426669759676,
+      "error": null
+    },
+    {
+      "index": 139,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 895.7065000431612,
+      "error": null
+    },
+    {
+      "index": 140,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 986.8708330905065,
+      "error": null
+    },
+    {
+      "index": 141,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1003.442040993832,
+      "error": null
+    },
+    {
+      "index": 142,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1480.5861249333248,
+      "error": null
+    },
+    {
+      "index": 143,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1499.2326248902828,
+      "error": null
+    },
+    {
+      "index": 144,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1179.0211249608546,
+      "error": null
+    },
+    {
+      "index": 145,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 687.462915899232,
+      "error": null
+    },
+    {
+      "index": 146,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1211.8496668990701,
+      "error": null
+    },
+    {
+      "index": 147,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1198.007708066143,
+      "error": null
+    },
+    {
+      "index": 148,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1526.5715420246124,
+      "error": null
+    },
+    {
+      "index": 149,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1609.6711669815704,
+      "error": null
+    },
+    {
+      "index": 150,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1520.450166077353,
+      "error": null
+    },
+    {
+      "index": 151,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1322.3788749892265,
+      "error": null
+    },
+    {
+      "index": 152,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1411.463791038841,
+      "error": null
+    },
+    {
+      "index": 153,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1592.2728329896927,
+      "error": null
+    },
+    {
+      "index": 154,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1401.2285410426557,
+      "error": null
+    },
+    {
+      "index": 155,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1199.9614170053974,
+      "error": null
+    },
+    {
+      "index": 156,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1502.8749170014635,
+      "error": null
+    },
+    {
+      "index": 157,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1591.7235419619828,
+      "error": null
+    },
+    {
+      "index": 158,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 1300.058541004546,
+      "error": null
+    },
+    {
+      "index": 159,
+      "operation": "reserve",
+      "status": 409,
+      "expected": true,
+      "expected_stock_conflict": true,
+      "duration_ms": 993.1199579732493,
+      "error": null
+    },
+    {
+      "index": 160,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1395.1600829605013,
+      "error": null
+    },
+    {
+      "index": 161,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1297.8001249721274,
+      "error": null
+    },
+    {
+      "index": 162,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1405.1523329690099,
+      "error": null
+    },
+    {
+      "index": 163,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1509.071792010218,
+      "error": null
+    },
+    {
+      "index": 164,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1506.1387079767883,
+      "error": null
+    },
+    {
+      "index": 165,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1398.8105839816853,
+      "error": null
+    },
+    {
+      "index": 166,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1906.3497089082375,
+      "error": null
+    },
+    {
+      "index": 167,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1389.695958001539,
+      "error": null
+    },
+    {
+      "index": 168,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1405.4842919576913,
+      "error": null
+    },
+    {
+      "index": 169,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1101.0756249306723,
+      "error": null
+    },
+    {
+      "index": 170,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1486.435041995719,
+      "error": null
+    },
+    {
+      "index": 171,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1282.026166911237,
+      "error": null
+    },
+    {
+      "index": 172,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1499.1873329272494,
+      "error": null
+    },
+    {
+      "index": 173,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1594.2668339703232,
+      "error": null
+    },
+    {
+      "index": 174,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 804.0802909526974,
+      "error": null
+    },
+    {
+      "index": 175,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 799.2560419952497,
+      "error": null
+    },
+    {
+      "index": 176,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 793.3088750578463,
+      "error": null
+    },
+    {
+      "index": 177,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 890.6528330408037,
+      "error": null
+    },
+    {
+      "index": 178,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1516.7147089960054,
+      "error": null
+    },
+    {
+      "index": 179,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1516.2379590328783,
+      "error": null
+    },
+    {
+      "index": 180,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1010.7354170177132,
+      "error": null
+    },
+    {
+      "index": 181,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1800.7727499352768,
+      "error": null
+    },
+    {
+      "index": 182,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1409.9915419938043,
+      "error": null
+    },
+    {
+      "index": 183,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1605.6160420412198,
+      "error": null
+    },
+    {
+      "index": 184,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1210.8530839905143,
+      "error": null
+    },
+    {
+      "index": 185,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 894.7200840339065,
+      "error": null
+    },
+    {
+      "index": 186,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1596.8714579939842,
+      "error": null
+    },
+    {
+      "index": 187,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1192.6383340032771,
+      "error": null
+    },
+    {
+      "index": 188,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1002.4507080670446,
+      "error": null
+    },
+    {
+      "index": 189,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1014.7875829134136,
+      "error": null
+    },
+    {
+      "index": 190,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1582.819874980487,
+      "error": null
+    },
+    {
+      "index": 191,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1188.7819999828935,
+      "error": null
+    },
+    {
+      "index": 192,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1611.8255419423804,
+      "error": null
+    },
+    {
+      "index": 193,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1399.8049159999937,
+      "error": null
+    },
+    {
+      "index": 194,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1291.422792011872,
+      "error": null
+    },
+    {
+      "index": 195,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1201.2778330827132,
+      "error": null
+    },
+    {
+      "index": 196,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1092.4167910125107,
+      "error": null
+    },
+    {
+      "index": 197,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1407.42029203102,
+      "error": null
+    },
+    {
+      "index": 198,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1393.4285000432283,
+      "error": null
+    },
+    {
+      "index": 199,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1206.7467919550836,
+      "error": null
+    },
+    {
+      "index": 200,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1569.7917910292745,
+      "error": null
+    },
+    {
+      "index": 201,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 793.2171249995008,
+      "error": null
+    },
+    {
+      "index": 202,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1390.3035830007866,
+      "error": null
+    },
+    {
+      "index": 203,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1381.9756670854986,
+      "error": null
+    },
+    {
+      "index": 204,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 807.789042009972,
+      "error": null
+    },
+    {
+      "index": 205,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 780.3785839350894,
+      "error": null
+    },
+    {
+      "index": 206,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1688.153582974337,
+      "error": null
+    },
+    {
+      "index": 207,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1607.5647079851478,
+      "error": null
+    },
+    {
+      "index": 208,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1601.9244169583544,
+      "error": null
+    },
+    {
+      "index": 209,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 678.8805420510471,
+      "error": null
+    },
+    {
+      "index": 210,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 707.5885420199484,
+      "error": null
+    },
+    {
+      "index": 211,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1108.3529170136899,
+      "error": null
+    },
+    {
+      "index": 212,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1224.4737090077251,
+      "error": null
+    },
+    {
+      "index": 213,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1315.809041960165,
+      "error": null
+    },
+    {
+      "index": 214,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1199.4649580447003,
+      "error": null
+    },
+    {
+      "index": 215,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 895.3173339832574,
+      "error": null
+    },
+    {
+      "index": 216,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1818.944124970585,
+      "error": null
+    },
+    {
+      "index": 217,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1917.2967500053346,
+      "error": null
+    },
+    {
+      "index": 218,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1190.887707984075,
+      "error": null
+    },
+    {
+      "index": 219,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 802.6798330247402,
+      "error": null
+    },
+    {
+      "index": 220,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1700.9546670597047,
+      "error": null
+    },
+    {
+      "index": 221,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 912.6738749910146,
+      "error": null
+    },
+    {
+      "index": 222,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1078.81137507502,
+      "error": null
+    },
+    {
+      "index": 223,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1816.520250053145,
+      "error": null
+    },
+    {
+      "index": 224,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 2096.4520829729736,
+      "error": null
+    },
+    {
+      "index": 225,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1511.8446659762412,
+      "error": null
+    },
+    {
+      "index": 226,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1001.9610000308603,
+      "error": null
+    },
+    {
+      "index": 227,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1521.4758339570835,
+      "error": null
+    },
+    {
+      "index": 228,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 884.7829579608515,
+      "error": null
+    },
+    {
+      "index": 229,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1584.6664170967415,
+      "error": null
+    },
+    {
+      "index": 230,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1701.7487500561401,
+      "error": null
+    },
+    {
+      "index": 231,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1105.558417038992,
+      "error": null
+    },
+    {
+      "index": 232,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 688.933749916032,
+      "error": null
+    },
+    {
+      "index": 233,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 816.1884170258418,
+      "error": null
+    },
+    {
+      "index": 234,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1272.926416946575,
+      "error": null
+    },
+    {
+      "index": 235,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1094.66408402659,
+      "error": null
+    },
+    {
+      "index": 236,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1184.042040957138,
+      "error": null
+    },
+    {
+      "index": 237,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1076.2232079869136,
+      "error": null
+    },
+    {
+      "index": 238,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1176.60749994684,
+      "error": null
+    },
+    {
+      "index": 239,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 796.125957975164,
+      "error": null
+    },
+    {
+      "index": 240,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 891.7958330130205,
+      "error": null
+    },
+    {
+      "index": 241,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1306.1637920327485,
+      "error": null
+    },
+    {
+      "index": 242,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1118.8826659927145,
+      "error": null
+    },
+    {
+      "index": 243,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1827.4579159915447,
+      "error": null
+    },
+    {
+      "index": 244,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 999.4201669469476,
+      "error": null
+    },
+    {
+      "index": 245,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1091.4295840775594,
+      "error": null
+    },
+    {
+      "index": 246,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1495.3106250613928,
+      "error": null
+    },
+    {
+      "index": 247,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1503.6124580074102,
+      "error": null
+    },
+    {
+      "index": 248,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1015.7579579390585,
+      "error": null
+    },
+    {
+      "index": 249,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1284.8424579715356,
+      "error": null
+    },
+    {
+      "index": 250,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1102.165041025728,
+      "error": null
+    },
+    {
+      "index": 251,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1289.580833981745,
+      "error": null
+    },
+    {
+      "index": 252,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1814.828500035219,
+      "error": null
+    },
+    {
+      "index": 253,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1001.0215840302408,
+      "error": null
+    },
+    {
+      "index": 254,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1609.3878340907395,
+      "error": null
+    },
+    {
+      "index": 255,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1796.5295419562608,
+      "error": null
+    },
+    {
+      "index": 256,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1100.5763330031186,
+      "error": null
+    },
+    {
+      "index": 257,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1197.9761659167707,
+      "error": null
+    },
+    {
+      "index": 258,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1098.6184169305488,
+      "error": null
+    },
+    {
+      "index": 259,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1012.8024580189958,
+      "error": null
+    },
+    {
+      "index": 260,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1090.5734580010176,
+      "error": null
+    },
+    {
+      "index": 261,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1491.33491597604,
+      "error": null
+    },
+    {
+      "index": 262,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1322.3161670612171,
+      "error": null
+    },
+    {
+      "index": 263,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1210.5743329739198,
+      "error": null
+    },
+    {
+      "index": 264,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1211.2377909943461,
+      "error": null
+    },
+    {
+      "index": 265,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1597.7822500281036,
+      "error": null
+    },
+    {
+      "index": 266,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1577.492209034972,
+      "error": null
+    },
+    {
+      "index": 267,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1399.6051249559969,
+      "error": null
+    },
+    {
+      "index": 268,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 700.3876249073073,
+      "error": null
+    },
+    {
+      "index": 269,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 774.6932080481201,
+      "error": null
+    },
+    {
+      "index": 270,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 780.4176249774173,
+      "error": null
+    },
+    {
+      "index": 271,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1004.3637080816552,
+      "error": null
+    },
+    {
+      "index": 272,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1092.7117919782177,
+      "error": null
+    },
+    {
+      "index": 273,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1704.5914579648525,
+      "error": null
+    },
+    {
+      "index": 274,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1328.0236249556765,
+      "error": null
+    },
+    {
+      "index": 275,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1405.7822920149192,
+      "error": null
+    },
+    {
+      "index": 276,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1816.3419170305133,
+      "error": null
+    },
+    {
+      "index": 277,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1321.363833034411,
+      "error": null
+    },
+    {
+      "index": 278,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1506.4867499750108,
+      "error": null
+    },
+    {
+      "index": 279,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1798.5487909754738,
+      "error": null
+    },
+    {
+      "index": 280,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1206.524624954909,
+      "error": null
+    },
+    {
+      "index": 281,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1397.3218339961022,
+      "error": null
+    },
+    {
+      "index": 282,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1286.2902079941705,
+      "error": null
+    },
+    {
+      "index": 283,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1300.1173329539597,
+      "error": null
+    },
+    {
+      "index": 284,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1297.0690410584211,
+      "error": null
+    },
+    {
+      "index": 285,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 1094.6201670449227,
+      "error": null
+    },
+    {
+      "index": 286,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 801.822750014253,
+      "error": null
+    },
+    {
+      "index": 287,
+      "operation": "read",
+      "status": 200,
+      "expected": true,
+      "expected_stock_conflict": false,
+      "duration_ms": 903.7389169679955,
+      "error": null
+    }
+  ],
+  "invariants": {
+    "successful_reservations": 64,
+    "database_reservations_via_api": 64,
+    "remaining_stock": 0,
+    "no_overselling": true,
+    "stock_accounting_matches": true,
+    "reservation_count_matches": true
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T00:24:25.158493+00:00"
+}

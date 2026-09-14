@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "service": "inventory-cloud-service",
+  "capabilities": [
+    "separate-migrations/v1",
+    "restricted-runtime/v1",
+    "reservation-idempotency/v1"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "prometheus": {
+    "version": "3.14.0",
+    "image": "prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+    "source": "https://github.com/prometheus/prometheus"
+  },
+  "alertmanager": {
+    "version": "0.34.0",
+    "image": "prom/alertmanager@sha256:690c7b525f4367aa91f73e2f91c632206d32e97c6384bdbf2fb7a861b420340d",
+    "source": "https://github.com/prometheus/alertmanager"
+  },
+  "blackbox": {
+    "version": "0.28.0",
+    "image": "prom/blackbox-exporter@sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc",
+    "source": "https://github.com/prometheus/blackbox_exporter"
+  },
+  "receiver": {
+    "version": "Python 3.13 Alpine, resolved September 14, 2026",
+    "image": "python@sha256:7415fbc3c9e4979cc717d92377ab2bc7b2b4a2af1ac03cc52b5f3f88efedaf3a",
+    "source": "https://hub.docker.com/_/python"
+  }
+}

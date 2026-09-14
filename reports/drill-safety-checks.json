@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-09-14T00:07:00.676211+00:00",
+  "status": "passed",
+  "type": "offline ownership guard checks with mocked Docker responses",
+  "checks": [
+    "foreign name rejected before Docker call",
+    "mismatched run label rejected",
+    "cleanup refuses deletion and reports ownership mismatch"
+  ]
+}

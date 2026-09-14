@@ -1,0 +1,66 @@
+name: inventory-cloud-service
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: inventory
+      POSTGRES_USER: inventory
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - inventory-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventory -d inventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+  migrate:
+    image: inventory-cloud-service-app
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: migrate
+      DB_URL: jdbc:postgresql://db:5432/inventory
+      DB_USERNAME: inventory
+      DB_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+      DB_APP_PASSWORD: ${DATABASE_APP_PASSWORD:?Set DATABASE_APP_PASSWORD in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    restart: "no"
+  app:
+    image: inventory-cloud-service-app
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_FLYWAY_ENABLED: "false"
+      DB_URL: jdbc:postgresql://db:5432/inventory
+      DB_USERNAME: inventory_app
+      DB_PASSWORD: ${DATABASE_APP_PASSWORD:?Set DATABASE_APP_PASSWORD in .env}
+      APP_AUTH_ADMIN_PASSWORD: ${APP_AUTH_ADMIN_PASSWORD:?Set APP_AUTH_ADMIN_PASSWORD in .env}
+      APP_AUTH_CUSTOMER_PASSWORD: ${APP_AUTH_CUSTOMER_PASSWORD:?Set APP_AUTH_CUSTOMER_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 768m
+    cpus: 1.0
+    stop_grace_period: 35s
+    restart: unless-stopped
+volumes:
+  inventory-db:

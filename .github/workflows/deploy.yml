@@ -1,0 +1,51 @@
+name: Deploy existing image
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Deploy, or roll back to a verified image compatible with the current schema'
+        required: true
+        default: deploy
+        type: choice
+        options:
+          - deploy
+          - rollback
+      image_digest:
+        description: 'Verified ECR digest (sha256:...); rollback excludes pre-migration-baseline images'
+        required: true
+        type: string
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    runs-on: ubuntu-latest
+    # Allow the migration waiter, deployment waiter, and a full rollback waiter.
+    timeout-minutes: 45
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ECS_CLUSTER: ${{ vars.ECS_CLUSTER }}
+      ECS_SERVICE: ${{ vars.ECS_SERVICE }}
+      ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+      IMAGE_DIGEST: ${{ inputs.image_digest }}
+      MIGRATION_TASK_DEFINITION: ${{ vars.MIGRATION_TASK_DEFINITION }}
+      DESIRED_COUNT: ${{ vars.ECS_DESIRED_COUNT || '1' }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: aws-actions/configure-aws-credentials@cabfdba3510de1431bac9dba27511d97497fc100 # v5
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Run database migrations using the verified image
+        if: inputs.operation == 'deploy'
+        run: ./scripts/migrate-ecs.sh
+      - name: Deploy digest and verify service
+        run: ./scripts/deploy-ecs.sh

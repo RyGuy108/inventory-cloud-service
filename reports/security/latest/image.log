@@ -1,0 +1,6 @@
+2026-09-13T19:18:04-05:00	INFO	Loaded	file_path="/var/folders/5g/kh2tld2s371bdd4qwnl9qwv80000gn/T/tmp.MAkLpdMud7/config.yaml"
+2026-09-13T19:18:04-05:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-13T19:18:08-05:00	INFO	Detected OS	family="ubuntu" version="22.04"
+2026-09-13T19:18:08-05:00	INFO	[ubuntu] Detecting vulnerabilities...	os_version="22.04" pkg_num=143
+2026-09-13T19:18:08-05:00	INFO	Number of language-specific files	num=1
+2026-09-13T19:18:08-05:00	INFO	[jar] Detecting vulnerabilities...

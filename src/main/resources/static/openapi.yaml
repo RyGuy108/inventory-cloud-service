@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: Inventory Cloud Service
+  version: 0.2.0
+  description: |
+    Transactional stock and reservation API. Production accepts signed bearer tokens
+    with the configured issuer and audience. ADMIN in the roles claim grants stock
+    write access. Local and test profiles use Basic authentication instead.
+    All quantities are integers. Send Idempotency-Key when creating a reservation
+    to retry safely after an ambiguous network failure. Without a key, each call
+    creates a new reservation. Cancellation is idempotent. Each response contains
+    an X-Request-ID for log correlation.
+servers:
+  - url: /
+security:
+  - bearerAuth: []
+  - localBasic: []
+paths:
+  /api/v1/products:
+    get:
+      operationId: listProducts
+      summary: List products by creation time descending, then ID
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Product page
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PageMetadata'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/Product' }
+        '400': { $ref: '#/components/responses/Invalid' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      operationId: createProduct
+      summary: Create a product (administrator only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sku, name, initialQuantity]
+              properties:
+                sku:
+                  type: string
+                  maxLength: 64
+                  pattern: '^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$'
+                  description: Normalized to uppercase; must be unique.
+                name: { type: string, minLength: 1, maxLength: 160 }
+                initialQuantity: { type: integer, minimum: 0, maximum: 1000000 }
+      responses:
+        '201':
+          description: Product created
+          headers:
+            Location: { schema: { type: string }, description: Product URL }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '400': { $ref: '#/components/responses/Invalid' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/products/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getProduct
+      summary: Get a product
+      responses:
+        '200':
+          description: Product
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/products/{id}/stock:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: addStock
+      summary: Add stock (administrator only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Quantity' }
+      responses:
+        '200':
+          description: Updated product
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '400': { $ref: '#/components/responses/Invalid' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/reservations:
+    get:
+      operationId: listMyReservations
+      summary: List the authenticated customer's reservations
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Reservation page
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PageMetadata'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/Reservation' }
+        '400': { $ref: '#/components/responses/Invalid' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      operationId: reserveStock
+      summary: Reserve available stock for the authenticated customer
+      description: |
+        A successful keyed request permanently binds the key to this customer,
+        product and quantity. Replays return HTTP 200 with the original reservation's
+        current state, including later cancellation; they never reserve stock again.
+        Changed product or quantity returns 409. Failed requests do not consume a key.
+        Retry transient contention with the same key and body. A key is scoped to
+        the authenticated customer, is case-sensitive, and does not expire.
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Use a new random UUID per intended reservation; reuse it only for retries.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: '^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [productId, quantity]
+              properties:
+                productId: { type: string, format: uuid }
+                quantity: { type: integer, minimum: 1, maximum: 1000000 }
+      responses:
+        '200':
+          description: Existing reservation for this customer and key; current state
+          headers:
+            Location: { schema: { type: string }, description: Original reservation URL }
+            Idempotency-Replayed: { schema: { type: boolean }, description: Always true on a replay }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Reservation' }
+        '201':
+          description: Stock reserved
+          headers:
+            Location: { schema: { type: string }, description: Reservation URL }
+            Idempotency-Replayed: { schema: { type: boolean }, description: False for a new reservation }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Reservation' }
+        '400': { $ref: '#/components/responses/Invalid' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/reservations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getMyReservation
+      summary: Get an owned reservation (other owners receive 404)
+      responses:
+        '200':
+          description: Reservation
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Reservation' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/reservations/{id}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: cancelMyReservation
+      summary: Cancel an owned reservation, restoring stock at most once
+      description: Send Content-Type application/json and an empty JSON object. Browser form content types are rejected.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        '200':
+          description: Cancelled reservation (repeated calls return the same result)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Reservation' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+    localBasic: { type: http, scheme: basic, description: Local/test profiles only }
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    Size:
+      name: size
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+  schemas:
+    Product:
+      type: object
+      required: [id, sku, name, availableQuantity, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        sku: { type: string }
+        name: { type: string }
+        availableQuantity: { type: integer, minimum: 0, maximum: 1000000 }
+        createdAt: { type: string, format: date-time }
+    Quantity:
+      type: object
+      required: [quantity]
+      properties:
+        quantity: { type: integer, minimum: 1, maximum: 1000000 }
+    Reservation:
+      type: object
+      required: [id, productId, quantity, customerId, status, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1, maximum: 1000000 }
+        customerId: { type: string }
+        status: { type: string, enum: [ACTIVE, CANCELLED] }
+        createdAt: { type: string, format: date-time }
+        cancelledAt: { type: string, format: date-time, nullable: true }
+    PageMetadata:
+      type: object
+      required: [items, page, size, totalElements, totalPages]
+      properties:
+        page: { type: integer }
+        size: { type: integer }
+        totalElements: { type: integer, format: int64 }
+        totalPages: { type: integer }
+    Problem:
+      type: object
+      required: [title, status, detail, instance]
+      properties:
+        type: { type: string }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }
+        requestId: { type: string }
+        errors: { type: array, items: { type: string } }
+  responses:
+    Invalid:
+      description: Invalid JSON, quantity, identifier, or pagination
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Unauthorized:
+      description: Missing or invalid authentication
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Forbidden:
+      description: Administrator role required
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    NotFound:
+      description: Resource does not exist or reservation belongs to another customer
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Conflict:
+      description: Duplicate SKU, insufficient stock, stock cap exceeded, or competing update
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }

@@ -1,0 +1,4 @@
+app:
+  auth:
+    admin-password: ${APP_AUTH_ADMIN_PASSWORD}
+    customer-password: ${APP_AUTH_CUSTOMER_PASSWORD}

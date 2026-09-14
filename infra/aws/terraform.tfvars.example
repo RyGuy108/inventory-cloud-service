@@ -1,0 +1,17 @@
+aws_region      = "us-east-1"
+environment     = "demo"
+container_image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/inventory-cloud-service@sha256:REPLACE_WITH_64_HEX_DIGEST"
+certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/REPLACE"
+public_hostname = "inventory.example.com"
+jwt_issuer_uri  = "https://your-identity-provider.example.com/"
+jwt_audience    = "inventory-api"
+# Set to two and true for availability across zones; estimate the added cost first.
+# Keep zero on first apply. The release workflow migrates, then starts one or more tasks.
+desired_count     = 0
+multi_az_database = false
+runtime_database_secret_arn = "arn:aws:secretsmanager:us-east-1:123456789012:secret:inventory-runtime-REPLACE"
+# Existing SNS topic ARNs; without these alarms do not send notifications.
+alarm_actions = []
+# Optional GitHub deployment role. The OIDC provider must already exist in your account.
+# github_repository        = "your-account/inventory-cloud-service"
+# github_oidc_provider_arn = "arn:aws:iam::123456789012:oidc-provider/token.actions.githubusercontent.com"

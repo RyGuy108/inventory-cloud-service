@@ -1,0 +1,60 @@
+{
+  "started_at": "2026-09-14T00:02:59.603526+00:00",
+  "status": "passed",
+  "drill": "local_backup_restore_and_database_outage",
+  "environment": {
+    "run_id": "08fc97e393a141e181d9ac974881b76d",
+    "application_image_id": "sha256:a15a6e1cec21fbb87def55c645a92bff59f38e671ec0130711b4c213064c60d0",
+    "postgres_image_id": "sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0",
+    "docker_server_version": "29.5.2",
+    "docker_os": "Ubuntu 24.04.4 LTS",
+    "docker_architecture": "aarch64",
+    "docker_cpus": 4,
+    "docker_memory_bytes": 6197448704,
+    "application_limits": {
+      "cpus": 1,
+      "memory_bytes": 805306368
+    },
+    "database_limits": {
+      "cpus": 1,
+      "memory_bytes": 402653184,
+      "storage": "disposable tmpfs"
+    },
+    "authentication": "local HTTP Basic with generated per-run credentials",
+    "jdbc_timeout_override_seconds": {
+      "socketTimeout": 5,
+      "connectTimeout": 3
+    },
+    "scope": "disposable local Docker containers; existing Compose application untouched"
+  },
+  "backup": {
+    "format": "PostgreSQL custom",
+    "bytes": 7574,
+    "sha256": "eba8ee5051c37d25c1ef19a0e3b4ab1452c57ccae579d01cc12ba4302e89d058",
+    "duration_seconds": 0.10674320801626891,
+    "storage": "process memory; never saved or uploaded"
+  },
+  "restore": {
+    "database_restore_seconds": 0.08026212500408292,
+    "destination": "separate fresh disposable database",
+    "application_ready_seconds": 10.084997000056319,
+    "checks": [
+      "all product fields match",
+      "all active reservation fields match",
+      "cancellation succeeds",
+      "repeat cancellation is idempotent",
+      "stock restored exactly once",
+      "source remains unchanged"
+    ]
+  },
+  "database_outage": {
+    "simulation": "pause/unpause only the restored disposable PostgreSQL container",
+    "readiness_status_during_outage": 503,
+    "liveness_status_during_outage": 200,
+    "unavailable_detection_seconds": 5.078343834029511,
+    "readiness_recovery_seconds": 0.0064469160279259086,
+    "business_read_after_recovery": "passed"
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-09-14T00:03:29.882840+00:00"
+}

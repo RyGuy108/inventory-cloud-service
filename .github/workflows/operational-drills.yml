@@ -1,0 +1,79 @@
+name: Operational drills
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: operational-drills-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    uses: ./.github/workflows/ci.yml
+    with:
+      release_bundle: true
+    permissions:
+      contents: read
+  drills:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EXPECTED_IMAGE_ID: ${{ needs.verify.outputs.image_id }}
+      EXPECTED_ARCHIVE_SHA256: ${{ needs.verify.outputs.archive_sha256 }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: verified-image-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/release-bundle
+      - name: Load the tested and scanned application without rebuilding
+        id: prepare
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_ARCHIVE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$EXPECTED_IMAGE_ID" =~ ^sha256:[0-9a-f]{64}$ ]]
+          printf '%s  %s\n' "$EXPECTED_ARCHIVE_SHA256" target/release-bundle/image.tar | sha256sum -c -
+          docker load --input target/release-bundle/image.tar
+          actual_image_id=$(docker image inspect inventory-cloud-service:verified --format '{{.Id}}')
+          [[ "$actual_image_id" == "$EXPECTED_IMAGE_ID" ]]
+          docker pull postgres:17-bookworm
+          docker pull quay.io/keycloak/keycloak:26.7.3
+          python3 - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          for component in json.loads(Path('monitoring/images.json').read_text()).values():
+              subprocess.run(['docker', 'pull', component['image']], check=True)
+          PY
+      # Sequential execution keeps these bounded local measurements from competing for CPU.
+      - name: Real identity provider, verified TLS, and production API authentication
+        run: python3 scripts/oidc-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/oidc.json
+      - name: Restore and recover with restricted runtime permissions
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/recovery-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/recovery.json
+      - name: Rotate the disposable runtime password and preserve business data
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/credential-rotation-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/rotation.json
+      - name: Bounded stock contention and read load
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/load-test.py --image "$EXPECTED_IMAGE_ID" --duration 50 --report target/operations/load.json
+      - name: Shared inventory and retries across two application instances
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/replica-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/replicas.json
+      - name: Restore the verified image after an unhealthy candidate
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/rollback-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/rollback.json
+      - name: Protected metrics, readiness alert, and recovery notification
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: python3 scripts/monitoring-drill.py --image "$EXPECTED_IMAGE_ID" --report target/operations/monitoring.json
+      - name: Retain sanitized drill evidence including failures
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: operational-drills-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/operations/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-09-14T18:20:06.558502+00:00",
+  "status": "passed",
+  "scope": "existing local Compose upgrade; no schema version change",
+  "before": {
+    "products": 3,
+    "reservations": 3,
+    "migrations": 2,
+    "product_fingerprint": "3f8a602bc1094c1a4f10acd9c4a0acb2",
+    "reservation_fingerprint": "6c3a2364353620ff8633dd49ecad6625"
+  },
+  "after": {
+    "products": 3,
+    "reservations": 3,
+    "migrations": 2,
+    "product_fingerprint": "3f8a602bc1094c1a4f10acd9c4a0acb2",
+    "reservation_fingerprint": "6c3a2364353620ff8633dd49ecad6625"
+  },
+  "existing_data_preserved": true,
+  "running_image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d"
+}

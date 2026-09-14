@@ -1,0 +1,12 @@
+{
+  "groups": [{
+    "name": "inventory-readiness",
+    "rules": [{
+      "alert": "InventoryReadinessFailed",
+      "expr": "probe_success{job=\"inventory-readiness\"} == 0",
+      "for": "4s",
+      "labels": {"severity": "warning"},
+      "annotations": {"summary": "The inventory service readiness probe is failing"}
+    }]
+  }]
+}

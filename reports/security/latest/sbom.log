@@ -1,0 +1,1 @@
+2026-09-13T19:18:08-05:00	INFO	"--format cyclonedx" disables security scanning. Specify "--scanners vuln" explicitly if you want to include vulnerabilities in the "cyclonedx" report.

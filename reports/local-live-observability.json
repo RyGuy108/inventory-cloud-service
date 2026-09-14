@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-09-14T18:24:15.793697+00:00",
+  "status": "passed",
+  "running_image_id": "sha256:c8a1bef9d5d0402c3b1546b7de27f7a305c214ab67517b20d1c187599ca7de2d",
+  "container_health": "healthy",
+  "health": {
+    "liveness": "UP",
+    "readiness": "UP"
+  },
+  "live_demo": "create, keyed reservation/replay/conflict, cancellation/repeated cancellation/replay after cancellation passed",
+  "business_metrics_after_demo": {
+    "inventory_products_total": 1.0,
+    "inventory_reservations_total": 1.0,
+    "inventory_reservations_cancellation_replayed_total": 1.0,
+    "inventory_reservations_cancelled_total": 1.0,
+    "inventory_reservations_replayed_total": 2.0,
+    "inventory_stock_added_total": 7.0,
+    "inventory_stock_released_total": 3.0,
+    "inventory_stock_reserved_total": 3.0
+  }
+}

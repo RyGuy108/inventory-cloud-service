@@ -1,0 +1,27 @@
+{
+  "scanned_at": "2026-09-14T01:12:14.729352+00:00",
+  "image": "inventory-cloud-service-app",
+  "image_id": "sha256:03e51ec41894cd7838d7cf4f8f7887d8e775adbf105274bcd7d6faea263ba30c",
+  "jar_sha256": "71e2b85787b55f0cfc5de6d8445a35fa5dc2bd90b3e8258c93d2d96e4f24e23f",
+  "blocking_severities": [
+    "HIGH",
+    "CRITICAL"
+  ],
+  "ignore_unfixed": false,
+  "scan_errors": false,
+  "reports": {
+    "dependencies": {
+      "packages": 102,
+      "vulnerabilities_by_severity": {}
+    },
+    "image": {
+      "packages": 245,
+      "vulnerabilities_by_severity": {
+        "MEDIUM": 40,
+        "LOW": 16
+      }
+    }
+  },
+  "image_platform": "linux/arm64",
+  "passed": true
+}

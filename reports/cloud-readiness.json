@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-09-14T21:04:42.065616+00:00",
+  "mode": "offline",
+  "configuration_valid": false,
+  "aws_metadata_checked": false,
+  "checks_passed": false,
+  "deployment_ready": false,
+  "readiness": "blocked",
+  "checks": [
+    {
+      "check": "aws_region",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "aws_account_id",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "state_bucket_name",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "container_image",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "certificate_arn",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "public_hostname",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "jwt_issuer_uri",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "jwt_audience",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    },
+    {
+      "check": "runtime_database_secret_arn",
+      "status": "fail",
+      "detail": "Missing required non-secret deployment setting."
+    }
+  ],
+  "unverified_requirements": [
+    "An offline run does not verify AWS resources, credentials, DNS, or identity-provider availability.",
+    "Metadata checks do not retrieve or validate the runtime secret password, execute migrations, or test database grants.",
+    "The Linux amd64 image must pass the release pipeline; existence in ECR alone is not vulnerability or architecture verification.",
+    "Review the Terraform plan, regional RDS capacity/quotas, cloud costs, HTTPS/DNS routing, identity-provider audience and roles, and GitHub environment protections.",
+    "Prove the deployed migration, service readiness, alert delivery, and recovery workflow before declaring the deployment ready."
+  ]
+}
