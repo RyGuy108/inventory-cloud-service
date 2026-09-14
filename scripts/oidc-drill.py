@@ -294,8 +294,13 @@ def main():
     parser.add_argument("--image", default="inventory-cloud-service-app")
     parser.add_argument("--database-image", default="postgres:17-bookworm")
     parser.add_argument("--keycloak-image", default=KEYCLOAK_IMAGE)
+    parser.add_argument("--print-keycloak-image", action="store_true",
+                        help="Print the exact identity-provider image reference and exit without starting a fixture")
     parser.add_argument("--report", type=Path, default=ROOT / "reports/oidc/latest.json")
     args = parser.parse_args()
+    if args.print_keycloak_image:
+        print(args.keycloak_image)
+        return 0
     fixture, report = None, {"started_at": recovery.utc_now(), "checks": [], "passed": False}
     ROOT.joinpath(".local").mkdir(exist_ok=True)
     try:

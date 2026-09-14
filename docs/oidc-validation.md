@@ -16,7 +16,8 @@ Build the application image and make the two supporting images available:
 ```sh
 docker build -t inventory-cloud-service-app .
 docker pull postgres:17-bookworm
-docker pull quay.io/keycloak/keycloak:26.7.3@sha256:ff4257d0d64efbe99ed1ddfaf07765cc3c36dc7518bf8324d41961327f441c54
+keycloak_image=$(python3 scripts/oidc-drill.py --print-keycloak-image)
+docker pull "$keycloak_image"
 python3 scripts/oidc-drill.py
 ```
 

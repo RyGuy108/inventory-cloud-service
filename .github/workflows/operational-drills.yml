@@ -40,7 +40,8 @@ jobs:
           actual_image_id=$(docker image inspect inventory-cloud-service:verified --format '{{.Id}}')
           [[ "$actual_image_id" == "$EXPECTED_IMAGE_ID" ]]
           docker pull postgres:17-bookworm
-          docker pull quay.io/keycloak/keycloak:26.7.3
+          keycloak_image=$(python3 scripts/oidc-drill.py --print-keycloak-image)
+          docker pull "$keycloak_image"
           python3 - <<'PY'
           import json
           import subprocess
